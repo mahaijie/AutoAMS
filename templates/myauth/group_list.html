@@ -1,4 +1,4 @@
-{% extends "admin/base.html" %}
+{% extends "base.html" %}
 
 {% block title %} 用户分组列表 {% endblock %}
 
@@ -28,7 +28,7 @@
                 <a href="/index.html">Home</a>
             </li>
             <li class="active">
-               <a href="/admin/myauth/group/list"><strong>用户分组列表</strong></a>
+               <a href="/myauth/group/list"><strong>用户分组列表</strong></a>
             </li>
         </ol>
     </div>
@@ -44,7 +44,7 @@
                     <div class="ibox-title">
                         <h5>用户分组列表</h5>
                         <div class="ibox-tools">
-                            <a href="/admin/myauth/group/add"><button type="button" class="btn btn-w-m btn-primary">添加</button></a>&nbsp;&nbsp;
+                            <a href="/myauth/group/add"><button type="button" class="btn btn-w-m btn-primary">添加</button></a>&nbsp;&nbsp;
 
                         </div>
                     </div>
@@ -68,8 +68,8 @@
                                     <td>
                                         <div class="btn-group">
                                             <a href="#"><button class="btn-white btn btn-xs">View</button></a>
-                                            <a href="/admin/myauth/group/update/{{ data.id }}"><button class="btn-white btn btn-xs">Edit</button></a>
-                                            <a href="javascript:void(0)" ><button link="/admin/myauth/group/del/{{ data.id }}" class="btn-white btn btn-xs ConfirmDel">Delete</button></a>
+                                            <a href="/myauth/group/update/{{ data.id }}"><button class="btn-white btn btn-xs">Edit</button></a>
+                                            <a href="javascript:void(0)" ><button link="/myauth/group/del/{{ data.id }}" class="btn-white btn btn-xs ConfirmDel">Delete</button></a>
                                         </div>
                                     </td>
                                 </tr>

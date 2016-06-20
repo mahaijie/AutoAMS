@@ -1,4 +1,4 @@
-{% extends "admin/base.html" %}
+{% extends "base.html" %}
 
 {% block title %} 硬盘备件列表 {% endblock %}
 
@@ -33,7 +33,7 @@
                 <a href="/index.html">Home</a>
             </li>
             <li class="active">
-               <a href="/admin/backup/diskbk/list"><strong>硬盘备件列表</strong></a>
+               <a href="/backup/diskbk/list"><strong>硬盘备件列表</strong></a>
             </li>
         </ol>
     </div>
@@ -51,7 +51,7 @@
                         <div class="ibox-tools">
                             <a href="/media/excel_templates/buckdisk.xls">下载Excel批量模板</a>&nbsp;&nbsp;
                             <button type="button" class="btn btn-w-m btn-primary" data-toggle="modal" data-target="#myModal_addmore">批量导入</button>&nbsp;&nbsp;
-                            <a href="/admin/backup/diskbk/add"><button type="button" class="btn btn-w-m btn-primary">单个添加</button></a>&nbsp;&nbsp;
+                            <a href="/backup/diskbk/add"><button type="button" class="btn btn-w-m btn-primary">单个添加</button></a>&nbsp;&nbsp;
                         </div>
                     </div>
                     <div class="ibox-content">
@@ -90,8 +90,8 @@
                                     <td>
                                         <div class="btn-group">
                                             <a href="#"><button class="btn-white btn btn-xs">详情</button></a>
-                                            <a href="/admin/backup/diskbk/update/{{ data.id }}"><button class="btn-white btn btn-xs">编辑</button></a>
-                                            <a href="javascript:void(0)" ><button link="/admin/backup/diskbk/del/{{ data.id }}" class="btn-white btn btn-xs ConfirmDel">删除</button></a>
+                                            <a href="/backup/diskbk/update/{{ data.id }}"><button class="btn-white btn btn-xs">编辑</button></a>
+                                            <a href="javascript:void(0)" ><button link="/backup/diskbk/del/{{ data.id }}" class="btn-white btn btn-xs ConfirmDel">删除</button></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -356,7 +356,7 @@
             function addmore(){
 
 					filepath = document.getElementById("filepath").value;
-                    jsonurl = "/admin/backup/diskbk/addmore/?filepath="+filepath+"&t="+Math.random();
+                    jsonurl = "/backup/diskbk/addmore/?filepath="+filepath+"&t="+Math.random();
                     $.get(jsonurl,function(data,status){
                         try  {
                             var obj = eval('(' + data + ')');

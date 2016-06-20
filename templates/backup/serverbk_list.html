@@ -1,4 +1,4 @@
-{% extends "admin/base.html" %}
+{% extends "base.html" %}
 
 {% block title %} 服务器备件列表 {% endblock %}
 
@@ -33,7 +33,7 @@
                 <a href="/index.html">Home</a>
             </li>
             <li class="active">
-               <a href="/admin/backup/serverbk/list"><strong>服务器备件列表</strong></a>
+               <a href="/backup/serverbk/list"><strong>服务器备件列表</strong></a>
             </li>
         </ol>
     </div>
@@ -51,7 +51,7 @@
                         <div class="ibox-tools">
                             <a href="/media/excel_templates/buckserver.xls">下载Excel批量模板</a>&nbsp;&nbsp;
                             <button type="button" class="btn btn-w-m btn-primary" data-toggle="modal" data-target="#myModal_addmore">批量导入</button>&nbsp;&nbsp;
-                            <a href="/admin/backup/serverbk/add"><button type="button" class="btn btn-w-m btn-primary">单台添加</button></a>&nbsp;&nbsp;
+                            <a href="/backup/serverbk/add"><button type="button" class="btn btn-w-m btn-primary">单台添加</button></a>&nbsp;&nbsp;
                         </div>
                     </div>
                     <div class="ibox-content">
@@ -92,8 +92,8 @@
                                     <td>
                                         <div class="btn-group">
                                             <a href="#"><button class="btn-white btn btn-xs">详情</button></a>
-                                            <a href="/admin/backup/serverbk/update/{{ data.id }}"><button class="btn-white btn btn-xs">编辑</button></a>
-                                            <a href="javascript:void(0)" ><button link="/admin/backup/serverbk/del/{{ data.id }}" class="btn-white btn btn-xs ConfirmDel">删除</button></a>
+                                            <a href="/backup/serverbk/update/{{ data.id }}"><button class="btn-white btn btn-xs">编辑</button></a>
+                                            <a href="javascript:void(0)" ><button link="/backup/serverbk/del/{{ data.id }}" class="btn-white btn btn-xs ConfirmDel">删除</button></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -358,7 +358,7 @@
             /*根据url异步获取数据*/
             function addmore(){
 					filepath = document.getElementById("filepath").value;
-                    jsonurl = "/admin/backup/serverbk/addmore/?filepath="+filepath+"&t="+Math.random();
+                    jsonurl = "/backup/serverbk/addmore/?filepath="+filepath+"&t="+Math.random();
                     $.get(jsonurl,function(data,status){
                         try  {
                             var obj = eval('(' + data + ')');

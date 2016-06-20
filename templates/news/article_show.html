@@ -1,4 +1,4 @@
-{% extends "admin/base.html" %}
+{% extends "base.html" %}
 
 {% block title %} 文章查看 {% endblock %}
 
@@ -11,7 +11,7 @@
                 <a href="/index.html">Home</a>
             </li>
             <li class="active">
-               <a href="/admin/news/article/list"><strong>文章列表</strong></a>
+               <a href="/news/article/list"><strong>文章列表</strong></a>
             </li>
             <li>
                文章查看
@@ -31,7 +31,7 @@
                             <div class="pull-right">
                                 {% for key,column in columns_dict.items %}
 
-                                    <a href="/admin/news/article/list/?s={{ column }}"><button class="btn btn-white btn-xs" type="button">{{ column }}</button></a>
+                                    <a href="/news/article/list/?s={{ column }}"><button class="btn btn-white btn-xs" type="button">{{ column }}</button></a>
 
                                 {% endfor %}
                             </div>
@@ -51,7 +51,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                         <h5>Tags:</h5>
-                                        <a href="/admin/news/article/list/?s={% load mytags %}{{ columns_dict|key:sqldata.column_id }}"><button class="btn btn-primary btn-xs" type="button">{% load mytags %} {{ columns_dict|key:sqldata.column_id }}</button></a>
+                                        <a href="/news/article/list/?s={% load mytags %}{{ columns_dict|key:sqldata.column_id }}"><button class="btn btn-primary btn-xs" type="button">{% load mytags %} {{ columns_dict|key:sqldata.column_id }}</button></a>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="small text-right">

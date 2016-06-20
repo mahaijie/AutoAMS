@@ -1,4 +1,4 @@
-{% extends "admin/base.html" %}
+{% extends "base.html" %}
 
 {% block title %} 用户列表 {% endblock %}
 
@@ -30,7 +30,7 @@
                 <a href="/index.html">Home</a>
             </li>
             <li class="active">
-               <a href="/admin/myauth/user/list"><strong>用户列表</strong></a>
+               <a href="/myauth/user/list"><strong>用户列表</strong></a>
             </li>
         </ol>
     </div>
@@ -85,7 +85,7 @@
                                         <div class="btn-group">
                                             <a href="#"><button class="btn-white btn btn-xs">View</button></a>
                                             <a href="#"><button class="btn-white btn btn-xs btn-primary" data-toggle="modal" data-target="#myModal_update" onClick="user_update({{ data.id }});">Edit</button></a>
-                                            <a href="javascript:void(0)" ><button link="/admin/myauth/user/del/{{ data.id }}" class="btn-white btn btn-xs ConfirmDel">Delete</button></a>
+                                            <a href="javascript:void(0)" ><button link="/myauth/user/del/{{ data.id }}" class="btn-white btn btn-xs ConfirmDel">Delete</button></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -204,7 +204,7 @@
                              rangelength:[3,20],
 
                              remote: {
-                                 url: "/admin/myauth/user/check_user_username/",     //后台处理程序
+                                 url: "/myauth/user/check_user_username/",     //后台处理程序
                                  type: "get",               //数据发送方式
                                  dataType: "json",          //接受数据格式
                                  data: {                     //要传递的数据
@@ -243,7 +243,7 @@
                              rangelength:[3,20],
 
                              remote: {
-                                 url: "/admin/myauth/user/check_user_username_update/",     //后台处理程序
+                                 url: "/myauth/user/check_user_username_update/",     //后台处理程序
                                  type: "get",               //数据发送方式
                                  dataType: "json",          //接受数据格式
                                  data: {                     //要传递的数据
@@ -344,7 +344,7 @@
             /*根据url异步获取数据*/
             function user_update(id){
 
-                    $.get("/admin/myauth/user/update_json/"+id+"/?t="+Math.random(),function(data,status){
+                    $.get("/myauth/user/update_json/"+id+"/?t="+Math.random(),function(data,status){
                         var obj = eval('(' + data + ')');
                         $("#id_update").val(obj.id);
                         $("#username_update").val(obj.username);
@@ -358,7 +358,7 @@
 
                         $("#group_id_update option[value='"+obj.group_id+"']").attr("selected", "selected");
 
-                        document.getElementById("form_update").action="/admin/myauth/user/update/"+id+"/"
+                        document.getElementById("form_update").action="/myauth/user/update/"+id+"/"
                   });
             }
 

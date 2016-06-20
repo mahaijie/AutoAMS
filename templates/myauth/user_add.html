@@ -1,4 +1,4 @@
-{% extends "admin/base.html" %}
+{% extends "base.html" %}
 {% block title %} 添加用户 {% endblock %}
 
 <!-- UEditor Style -->
@@ -17,7 +17,7 @@
                 <a href="/index.html">Home</a>
             </li>
             <li class="active">
-                <a href="/admin/myauth/user/list">用户列表</a>
+                <a href="/myauth/user/list">用户列表</a>
             </li>
             <li class="active">
                 <strong>添加用户</strong>
@@ -175,7 +175,7 @@
                              rangelength:[3,20],
 
                              remote: {
-                                 url: "/admin/myauth/user/check_user_username/",     //后台处理程序
+                                 url: "/myauth/user/check_user_username/",     //后台处理程序
                                  type: "get",               //数据发送方式
                                  dataType: "json",          //接受数据格式
                                  data: {                     //要传递的数据

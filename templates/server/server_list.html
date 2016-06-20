@@ -1,4 +1,4 @@
-{% extends "admin/base.html" %}
+{% extends "base.html" %}
 
 {% block title %} 服务器列表 {% endblock %}
 
@@ -31,7 +31,7 @@
                 <a href="/index.html">Home</a>
             </li>
             <li class="active">
-               <a href="/admin/idcroom/list"><strong>服务器列表</strong></a>
+               <a href="/idcroom/list"><strong>服务器列表</strong></a>
             </li>
         </ol>
     </div>
@@ -88,7 +88,7 @@
                                     <td>
                                         <div class="btn-group">
                                             <a href="#"><button class="btn-white btn btn-xs">详情</button></a>
-                                            <a href="/admin/server/update/{{ data.id }}"><button class="btn-white btn btn-xs">编辑</button></a>
+                                            <a href="/server/update/{{ data.id }}"><button class="btn-white btn btn-xs">编辑</button></a>
 
                                         </div>
                                     </td>
@@ -194,7 +194,7 @@
                         });
                         //alert("请选择需要更新信息的服务器！")
                     } else{
-                        window.location.href="/admin/server/updatemore/?moreid="+serverlist;
+                        window.location.href="/server/updatemore/?moreid="+serverlist;
                     }
 
             }
