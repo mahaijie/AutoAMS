@@ -1,0 +1,76 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element"> <span>
+                            <img alt="image" class="img-circle" width="60" src="/static/skin/img/superman.jpg" />
+                             </span>
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ request.user.username }}</strong></span>
+                                <span class="text-muted text-xs block">
+                                    {{ request.user.name }}
+                                    <b class="caret"></b>
+                                </span> </span> </a>
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        <li><a href="/myauth/user/update/{{ request.user.id }}">用户信息</a></li>
+                        <li><a href="/myauth/user/update/{{ request.user.id }}">修改密码</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/accounts/logout">注销</a></li>
+                    </ul>
+                </div>
+                <div class="logo-element">
+                    资产+
+                </div>
+            </li>
+            <li>
+                <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">仪表盘</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li><a href="/index.html">首页</a></li>
+                    <li><a href="#">系统设置</a></li>
+                    <li><a href="#">日志查看</a></li>
+                </ul>
+            </li>
+            <li {% if nav_server_list %} class="active" {% endif %}>
+                <a href="/server/list"><i class="fa fa-laptop"></i> <span class="nav-label">服务器管理</span></a>
+            </li>
+            <li {% if nav_network_list %} class="active" {% endif %}>
+                <a href="/server/list"><i class="fa fa-list-ul"></i> <span class="nav-label">交换机管理</span></a>
+            </li>
+            <li {% if nav_backup_serverbk_list or nav_backup_diskbk_list or nav_backup_memorybk_list %} class="active" {% endif %}>
+                <a href="index.html"><i class="fa fa-th"></i> <span class="nav-label">备件管理</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li {% if nav_backup_serverbk_list %} class="active" {% endif %}>
+                        <a href="/backup/serverbk/list">服务器备件</a>
+                    </li>
+                    <li {% if nav_backup_diskbk_list %} class="active" {% endif %}>
+                        <a href="/backup/diskbk/list">硬盘备件</a>
+                    </li>
+                    <li {% if nav_backup_memorybk_list %} class="active" {% endif %}>
+                        <a href="/backup/memorybk/list">内存备件</a>
+                    </li>
+                </ul>
+            </li>
+            <li {% if nav_idcroom_list %} class="active" {% endif %}>
+                <a href="/idcroom/list"><i class="fa fa-building-o"></i> <span class="nav-label">机房管理</span></a>
+            </li>
+            <li {% if nav_news_column_list or nav_news_article_list %} class="active" {% endif %}>
+                <a href="index.html"><i class="fa fa-mortar-board"></i> <span class="nav-label">知识库</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li {% if nav_news_column_list %} class="active" {% endif %}>
+                        <a href="/news/column/list">分类管理</a>
+                    </li>
+                    <li {% if nav_news_article_list %} class="active" {% endif %}>
+                        <a href="/news/article/list">文章管理</a>
+                    </li>
+                </ul>
+            </li>
+            <li {% if nav_myauth_group_list %} class="active" {% endif %}>
+                <a href="/myauth/group/list"><i class="fa fa-unlock-alt"></i> <span class="nav-label">权限管理</span></a>
+            </li>
+            <li {% if nav_myauth_user_list %} class="active" {% endif %}>
+                <a href="/myauth/user/list"><i class="fa fa-user"></i> <span class="nav-label">用户管理</span></a>
+            </li>
+        </ul>
+
+    </div>
+</nav>
