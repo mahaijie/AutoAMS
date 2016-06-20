@@ -1,0 +1,29 @@
+<!--添加弹窗-->
+<div class="modal inmodal" id="myModal_addmore" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+		<div class="modal-content animated bounceInRight">
+            <div id="add">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h5 class="modal-title">批量添加</h5>
+
+                </div>
+                    <div class="modal-content">
+                        <form id="my-awesome-dropzone" action="/admin/common/my_upload_file?type=excel" class="dropzone">
+                            {% csrf_token %}
+                            <div class="dropzone-previews" id="dropz"></div>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" id="filepath" name="filepath">
+                        <section class="progress-demo">
+                            <button class="ladda-button btn btn-primary" data-style="expand-right" onClick="addmore();">提交</button>
+                        </section>
+                    </div>
+                </div>
+        </div>
+
+    </div>
+</div>
+<!--添加弹窗-->

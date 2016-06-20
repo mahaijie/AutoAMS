@@ -1,0 +1,96 @@
+<!--更新弹窗-->
+<div class="modal inmodal" id="myModal_update" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+		<div class="modal-content animated bounceInRight">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h5 class="modal-title">更新用户</h5>
+			</div>
+                <form method="POST"  action="" class="form-horizontal"  id="form_update">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="ibox-content">
+
+                            <div class="form-group" style="display: none">
+								<label class="col-sm-2 control-label">ID</label>
+								<div class="col-sm-9">
+									<input type="text" name="id" id="id_update" class="form-control">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-2 control-label">用户名</label>
+								<div class="col-sm-9">
+									<input type="text" disabled="disabled" name="username" id="username_update" class="form-control">
+								</div>
+                                <label class="col-sm-0 control-label" style="color:red">*</label>
+							</div>
+
+
+							 <div class="form-group">
+								<label class="col-sm-2 control-label">姓名</label>
+								<div class="col-sm-9">
+									<input type="text" name="name" id="name_update" class="form-control">
+								</div>
+                                <label class="col-sm-0 control-label" style="color:red">*</label>
+							</div>
+
+
+							<div class="form-group">
+								<label class="col-sm-2 control-label">密码</label>
+								<div class="col-sm-9">
+									<input type="password" name="password" id="password_update" class="form-control">
+								</div>
+                                <label class="col-sm-0 control-label" style="color:red">*</label>
+							</div>
+
+
+							<div class="form-group">
+								<label class="col-sm-2 control-label">邮箱</label>
+								<div class="col-sm-9">
+									<input type="text" name="email" id="email_update" class="form-control">
+								</div>
+                                <label class="col-sm-0 control-label" style="color:red">*</label>
+							</div>
+
+
+							<div class="form-group"><label class="col-sm-2 control-label">分组</label>
+								<div class="col-sm-9">
+									<select class="form-control m-b" id="group_id_update" name="group_id">
+                                        {% for key,value in groups_dict.items %}
+                                            <option value={{ key }}>{{ value }}</option>
+                                        {% endfor %}
+                                    </select>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-2 control-label">状态</label>
+								<div class="col-sm-9">
+									<div class="col-sm-10">
+										<label class="checkbox-inline">
+											<input type="checkbox" name="is_active" id="inlineCheckbox1_update"> 激活 </label> <label class="checkbox-inline">
+										</label>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<div class="col-sm-4 col-sm-offset-2">
+
+								</div>
+							</div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-white" data-dismiss="modal" type="button">取消</button>
+                        <button class="btn btn-primary" type="submit">更新</button>
+                    </div>
+				</form>
+
+        </div>
+    </div>
+</div>
+<!--添加弹窗-->
