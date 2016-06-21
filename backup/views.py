@@ -59,7 +59,7 @@ def serverbk_add(request):
         )
         serverbk.save()
 
-        return HttpResponseRedirect("/admin/backup/serverbk/list?action=add")
+        return HttpResponseRedirect("backup/serverbk/list?action=add")
 
     return render(request,'backup/serverbk_add.html',mydict)
 
@@ -115,7 +115,7 @@ def serverbk_update(request,id):
 
         serverbk.save()
 
-        return HttpResponseRedirect("/admin/backup/serverbk/list?action=update")
+        return HttpResponseRedirect("backup/serverbk/list?action=update")
 
     return render(request,'backup/serverbk_update.html',mydict)
 
@@ -126,7 +126,7 @@ def serverbk_del(request,id):
     data = Serverbk.objects.get(id=id)
     data.delete()
 
-    return HttpResponseRedirect("/admin/backup/serverbk/list?action=del")
+    return HttpResponseRedirect("backup/serverbk/list?action=del")
 
 @login_required
 @commons.permission_validate
@@ -143,7 +143,7 @@ def serverbk_list(request):
         #file = request.FILES['file']
         if request.FILES['file']:
             filepath = commons.handle_upload_file(request.FILES['file'])
-        return HttpResponseRedirect('/admin/backup/serverbk/list')
+        return HttpResponseRedirect('backup/serverbk/list')
 
 
     mynotice = ""
@@ -249,7 +249,7 @@ def serverbk_addmore(request):
             time.sleep(2)
             json_data = json.dumps({"error":0,"info":"成功导入%d台服务器备件，更新%d台服务器备件"%(add,update)})
             return HttpResponse(json_data)
-            #return HttpResponseRedirect('/admin/backup/serverbk/list')
+            #return HttpResponseRedirect('backup/serverbk/list')
 
         except Exception,e:
             #print str(e)
@@ -314,7 +314,7 @@ def diskbk_add(request):
         )
         diskbk.save()
 
-        return HttpResponseRedirect("/admin/backup/diskbk/list?action=add")
+        return HttpResponseRedirect("backup/diskbk/list?action=add")
 
     return render(request,'backup/diskbk_add.html',mydict)
 
@@ -376,7 +376,7 @@ def diskbk_update(request,id):
 
         diskbk.save()
 
-        return HttpResponseRedirect("/admin/backup/diskbk/list?action=update")
+        return HttpResponseRedirect("backup/diskbk/list?action=update")
 
     return render(request,'backup/diskbk_update.html',mydict)
 
@@ -387,7 +387,7 @@ def diskbk_del(request,id):
     data = Diskbk.objects.get(id=id)
     data.delete()
 
-    return HttpResponseRedirect("/admin/backup/diskbk/list?action=del")
+    return HttpResponseRedirect("backup/diskbk/list?action=del")
 
 @login_required
 @commons.permission_validate
@@ -411,7 +411,7 @@ def diskbk_list(request):
         #file = request.FILES['file']
         if request.FILES['file']:
             filepath = commons.handle_upload_file(request.FILES['file'])
-        return HttpResponseRedirect('/admin/backup/diskbk/list')
+        return HttpResponseRedirect('backup/diskbk/list')
 
 
     mynotice = ""
@@ -513,7 +513,7 @@ def diskbk_addmore(request):
             time.sleep(2)
             json_data = json.dumps({"error":0,"info":"成功导入%d块硬盘备件，更新%d块硬盘备件"%(add,update)})
             return HttpResponse(json_data)
-            #return HttpResponseRedirect('/admin/backup/diskbk/list')
+            #return HttpResponseRedirect('backup/diskbk/list')
 
         except Exception,e:
             #print str(e)
@@ -579,7 +579,7 @@ def memorybk_add(request):
         )
         memorybk.save()
 
-        return HttpResponseRedirect("/admin/backup/memorybk/list?action=add")
+        return HttpResponseRedirect("backup/memorybk/list?action=add")
 
     return render(request,'backup/memorybk_add.html',mydict)
 
@@ -641,7 +641,7 @@ def memorybk_update(request,id):
 
         memorybk.save()
 
-        return HttpResponseRedirect("/admin/backup/memorybk/list?action=update")
+        return HttpResponseRedirect("backup/memorybk/list?action=update")
 
     return render(request,'backup/memorybk_update.html',mydict)
 
@@ -652,7 +652,7 @@ def memorybk_del(request,id):
     data = Memorybk.objects.get(id=id)
     data.delete()
 
-    return HttpResponseRedirect("/admin/backup/memorybk/list?action=del")
+    return HttpResponseRedirect("backup/memorybk/list?action=del")
 
 @login_required
 @commons.permission_validate
@@ -676,7 +676,7 @@ def memorybk_list(request):
         #file = request.FILES['file']
         if request.FILES['file']:
             filepath = commons.handle_upload_file(request.FILES['file'])
-        return HttpResponseRedirect('/admin/backup/memorybk/list')
+        return HttpResponseRedirect('backup/memorybk/list')
 
 
     mynotice = ""
@@ -747,7 +747,7 @@ def memorybk_addmore(request):
             time.sleep(2)
             json_data = json.dumps({"error":0,"info":"成功导入%d条内存备件"%(add)})
             return HttpResponse(json_data)
-            #return HttpResponseRedirect('/admin/backup/memorybk/list')
+            #return HttpResponseRedirect('backup/memorybk/list')
 
         except Exception,e:
             #print str(e)

@@ -41,7 +41,7 @@ def group_add(request):
         )
         group.save()
 
-        return HttpResponseRedirect("/admin/myauth/group/list?action=add")
+        return HttpResponseRedirect("myauth/group/list?action=add")
 
     return render(request,'myauth/group_add.html',mydict)
 
@@ -87,7 +87,7 @@ def group_update(request,id):
 
         group.save()
 
-        return HttpResponseRedirect("/admin/myauth/group/list?action=update")
+        return HttpResponseRedirect("myauth/group/list?action=update")
 
     return render(request,'myauth/group_update.html',mydict)
 
@@ -98,7 +98,7 @@ def group_del(request,id):
     data = Group.objects.get(id=id)
     data.delete()
 
-    return HttpResponseRedirect("/admin/myauth/group/list?action=del")
+    return HttpResponseRedirect("myauth/group/list?action=del")
 
 @login_required
 @commons.permission_validate
@@ -155,7 +155,7 @@ def user_add(request):
                 is_active = is_active,
             )
             user.save()
-            return HttpResponseRedirect("/admin/myauth/user/list?action=add")
+            return HttpResponseRedirect("myauth/user/list?action=add")
         except Exception:
             pass
 
@@ -204,7 +204,7 @@ def user_update(request,id):
             user.is_active = is_active
 
             user.save()
-            return HttpResponseRedirect("/admin/myauth/user/list?action=update")
+            return HttpResponseRedirect("myauth/user/list?action=update")
         except Exception:
             pass
 
@@ -231,7 +231,7 @@ def user_del(request,id):
     data = User.objects.get(id=id)
     data.delete()
 
-    return HttpResponseRedirect("/admin/myauth/user/list?action=del")
+    return HttpResponseRedirect("myauth/user/list?action=del")
 
 @login_required
 @commons.permission_validate

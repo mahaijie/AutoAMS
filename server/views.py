@@ -45,7 +45,7 @@ def server_update(request,id):
 
         server.save()
 
-        return HttpResponseRedirect("/admin/server/list?action=update")
+        return HttpResponseRedirect("server/list?action=update")
 
     return render(request,'server/server_update.html',mydict)
 
@@ -79,7 +79,7 @@ def server_updatemore(request):
         moreid = commons.str_to_list(moreid) #将传过来的字符串转换为list
         Server.objects.filter(id__in = moreid).update(company=company,department=department,principal=principal,servicetype=servicetype,guarantee=guarantee,buydate=buydate,user=user,status=status,comment=comment)
 
-        return HttpResponseRedirect("/admin/server/list?action=update")
+        return HttpResponseRedirect("server/list?action=update")
 
 
     return render(request,'server/server_updatemore.html',mydict)

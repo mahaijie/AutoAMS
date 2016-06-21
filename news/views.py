@@ -49,7 +49,7 @@ def column_add(request):
         )
         column.save()
 
-        return HttpResponseRedirect("/admin/news/column/list?action=add")
+        return HttpResponseRedirect("news/column/list?action=add")
 
     return render(request,'news/column_add.html',mydict)
 
@@ -98,7 +98,7 @@ def column_update(request,id):
 
         column.save()
 
-        return HttpResponseRedirect("/admin/news/column/list?action=update")
+        return HttpResponseRedirect("news/column/list?action=update")
 
     return render(request,'news/column_update.html',mydict)
 
@@ -109,7 +109,7 @@ def column_del(request,id):
     data = Column.objects.get(id=id)
     data.delete()
 
-    return HttpResponseRedirect("/admin/news/column/list?action=del")
+    return HttpResponseRedirect("news/column/list?action=del")
 
 @login_required
 @commons.permission_validate
@@ -168,7 +168,7 @@ def article_add(request):
         )
         article.save()
 
-        return HttpResponseRedirect("/admin/news/article/list?action=add")
+        return HttpResponseRedirect("news/article/list?action=add")
 
     return render(request,'news/article_add.html',mydict)
 
@@ -216,7 +216,7 @@ def article_update(request,id):
 
         article.save()
 
-        return HttpResponseRedirect("/admin/news/article/list?action=update")
+        return HttpResponseRedirect("news/article/list?action=update")
 
     return render(request,'news/article_update.html',mydict)
 
@@ -227,7 +227,7 @@ def article_del(request,id):
     data = Article.objects.get(id=id)
     data.delete()
 
-    return HttpResponseRedirect("/admin/news/article/list?action=del")
+    return HttpResponseRedirect("news/article/list?action=del")
 
 @login_required
 @commons.permission_validate
