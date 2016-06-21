@@ -59,7 +59,7 @@ def serverbk_add(request):
         )
         serverbk.save()
 
-        return HttpResponseRedirect("backup/serverbk/list?action=add")
+        return HttpResponseRedirect("/backup/serverbk/list?action=add")
 
     return render(request,'backup/serverbk_add.html',mydict)
 
@@ -115,7 +115,7 @@ def serverbk_update(request,id):
 
         serverbk.save()
 
-        return HttpResponseRedirect("backup/serverbk/list?action=update")
+        return HttpResponseRedirect("/backup/serverbk/list?action=update")
 
     return render(request,'backup/serverbk_update.html',mydict)
 
@@ -126,7 +126,7 @@ def serverbk_del(request,id):
     data = Serverbk.objects.get(id=id)
     data.delete()
 
-    return HttpResponseRedirect("backup/serverbk/list?action=del")
+    return HttpResponseRedirect("/backup/serverbk/list?action=del")
 
 @login_required
 @commons.permission_validate
@@ -314,7 +314,7 @@ def diskbk_add(request):
         )
         diskbk.save()
 
-        return HttpResponseRedirect("backup/diskbk/list?action=add")
+        return HttpResponseRedirect("/backup/diskbk/list?action=add")
 
     return render(request,'backup/diskbk_add.html',mydict)
 
@@ -376,7 +376,7 @@ def diskbk_update(request,id):
 
         diskbk.save()
 
-        return HttpResponseRedirect("backup/diskbk/list?action=update")
+        return HttpResponseRedirect("/backup/diskbk/list?action=update")
 
     return render(request,'backup/diskbk_update.html',mydict)
 
@@ -387,7 +387,7 @@ def diskbk_del(request,id):
     data = Diskbk.objects.get(id=id)
     data.delete()
 
-    return HttpResponseRedirect("backup/diskbk/list?action=del")
+    return HttpResponseRedirect("/backup/diskbk/list?action=del")
 
 @login_required
 @commons.permission_validate
@@ -579,7 +579,7 @@ def memorybk_add(request):
         )
         memorybk.save()
 
-        return HttpResponseRedirect("backup/memorybk/list?action=add")
+        return HttpResponseRedirect("/backup/memorybk/list?action=add")
 
     return render(request,'backup/memorybk_add.html',mydict)
 
@@ -641,7 +641,7 @@ def memorybk_update(request,id):
 
         memorybk.save()
 
-        return HttpResponseRedirect("backup/memorybk/list?action=update")
+        return HttpResponseRedirect("/backup/memorybk/list?action=update")
 
     return render(request,'backup/memorybk_update.html',mydict)
 
@@ -652,7 +652,7 @@ def memorybk_del(request,id):
     data = Memorybk.objects.get(id=id)
     data.delete()
 
-    return HttpResponseRedirect("backup/memorybk/list?action=del")
+    return HttpResponseRedirect("/backup/memorybk/list?action=del")
 
 @login_required
 @commons.permission_validate

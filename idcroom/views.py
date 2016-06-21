@@ -40,7 +40,7 @@ def idcroom_add(request):
         )
         idcroom.save()
 
-        return HttpResponseRedirect("idcroom/list?action=add")
+        return HttpResponseRedirect("/idcroom/list?action=add")
 
     return render(request,'idcroom/idcroom_add.html',mydict)
 
@@ -79,7 +79,7 @@ def idcroom_update(request,id):
 
         idcroom.save()
 
-        return HttpResponseRedirect("idcroom/list?action=update")
+        return HttpResponseRedirect("/idcroom/list?action=update")
 
     return render(request,'idcroom/idcroom_update.html',mydict)
 
@@ -90,7 +90,7 @@ def idcroom_del(request,id):
     data = Idcroom.objects.get(id=id)
     data.delete()
 
-    return HttpResponseRedirect("idcroom/list?action=del")
+    return HttpResponseRedirect("/idcroom/list?action=del")
 
 @login_required
 @commons.permission_validate
