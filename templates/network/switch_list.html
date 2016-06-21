@@ -18,9 +18,6 @@
     <!-- Data Table -->
     <link href="/static/skin/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
 
-    <!-- iCheck -->
-    <link href="/static/skin/css/plugins/iCheck/custom.css" rel="stylesheet">
-
 {% endblock %}
 {% block content %}
     <div class="row wrapper border-bottom white-bg page-heading">
@@ -130,65 +127,6 @@
         <!-- Data table -->
         <script src="/static/skin/js/plugins/dataTables/datatables.min.js"></script>
 
-        <!-- iCheck -->
-        <script src="/static/skin/js/plugins/iCheck/icheck.min.js"></script>
-
-        <script>
-        /*iCheck*/
-            $(document).ready(function(){
-                $('.i-checks').iCheck({
-                    checkboxClass: 'icheckbox_square-green',
-                    radioClass: 'iradio_square-green',
-                });
-            });
-        </script>
-
-        <!-- selectAll -->
-        <script>
-            /*全选/取消*/
-            function selectAll(){
-                var n = 0;
-                $('.i-checks').each(function(){
-                    var self=$(this);
-                    if(!self.prop('checked')){
-                        self.prop('checked',true);
-                        n++;
-                    }
-                });
-                if(n == 0){
-                    $('.i-checks').removeAttr('checked');
-                }
-                $('.i-checks').iCheck({
-                    checkboxClass: 'icheckbox_square-green checked',
-                    radioClass: 'iradio_square-green checked',
-                });
-            }
-
-            function updatemore(){
-
-                    var switchlist = "";
-                    $("input:checkbox[name='switchlist']:checked").each(function() {
-                        switchlist += $(this).val() + ",";
-                    });
-                    //删除字符串末尾多余的逗号
-                    switchlist=switchlist.substring(0,switchlist.length-1);
-
-
-                    //alert("已选择交换机："+switchlist);
-                    if(switchlist == ""){
-                        swal({
-                            title: "温馨提示",
-                            text: "请选择需要更新信息的交换机，然后再点批量更新按钮！",
-                            type: "warning",
-                        });
-                        //alert("请选择需要更新信息的交换机！")
-                    } else{
-                        window.location.href="/switch/updatemore/?moreid="+switchlist;
-                    }
-
-            }
-
-        </script>
 
         <!-- Page-Level Scripts -->
         <script>
