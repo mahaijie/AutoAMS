@@ -261,7 +261,7 @@ def check_user_username(request):
         result = "false"
     else:
         result = "true"
-    return render(request, 'admin/check_fiels.html', {"result":result})
+    return HttpResponse(result)
 
 def check_user_username_update(request):
     id = request.GET.get("id")
@@ -271,7 +271,7 @@ def check_user_username_update(request):
         result = "false"
     else:
         result = "true"
-    return render(request, 'admin/check_fiels.html', {"result":result})
+    return HttpResponse(result)
 
 def login_view(request):
     if request.user.username:
