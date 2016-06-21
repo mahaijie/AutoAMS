@@ -205,5 +205,11 @@ PERMISSIONS = {
     "memorybk_del":"内存备件删除",
     "memorybk_list":"内存备件列表",
 
+    # network app
+    "switch_add":"交换机添加",
+    "switch_update":"交换机更新",
+    "switch_del":"交换机删除",
+    "switch_list":"交换机列表",
+
 }
 

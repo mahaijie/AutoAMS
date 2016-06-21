@@ -8,6 +8,7 @@ from idcroom.models import Idcroom
 
 
 @login_required
+@commons.permission_validate
 def switch_add(request):
 
     idcroom = Idcroom.objects.all() # 获取机房列表
@@ -70,6 +71,7 @@ def switch_add(request):
 
 
 @login_required
+@commons.permission_validate
 def switch_update(request,id):
     sqldata = Switch.objects.get(id=id)
     idcroom = Idcroom.objects.all() # 获取机房列表
@@ -130,6 +132,7 @@ def switch_update(request,id):
     return render(request,'network/switch_update.html',mydict)
 
 @login_required
+@commons.permission_validate
 def switch_list(request):
     sqldata = Switch.objects.all()
 

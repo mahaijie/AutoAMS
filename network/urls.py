@@ -8,6 +8,5 @@ urlpatterns = patterns('network.views',
                        url(r'^network/switch/list/',  'switch_list',name='switch_list'),
                        url(r'^network/switch/add/',  'switch_add',name='switch_add'),
                        url(r'^network/switch/update/(?P<id>\d+)/$',  'switch_update',name='switch_update'),
-                       url(r'^network/switch/updatemore/',  'switch_updatemore',name='switch_updatemore'),
 
                        )
