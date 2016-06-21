@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %} 更新硬盘备件 {% endblock %}
+{% block title %} 更新交换机属性 {% endblock %}
 
 <!-- UEditor Style -->
 {% block stylesheet %}
@@ -10,16 +10,16 @@
 {% block content %}
     <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>更新硬盘备件</h2>
+        <h2>更新交换机属性</h2>
         <ol class="breadcrumb">
             <li>
                 <a href="/index.html">Home</a>
             </li>
             <li class="active">
-               <a href="/backup/diskbk/list">硬盘备件列表</a>
+               <a href="/network/switch/list">交换机列表</a>
             </li>
             <li class="active">
-                <strong>更新硬盘备件</strong>
+                <strong>更新交换机属性</strong>
             </li>
         </ol>
     </div>
@@ -57,10 +57,38 @@
 
                             <form method="POST" class="form-horizontal">
                                 {% csrf_token %}
+
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">序列号</label>
+                                    <label class="col-sm-2 control-label">SN</label>
                                     <div class="col-sm-6">
                                         <input type="text" name="sn" class="form-control" value="{{ sqldata.sn }}">
+                                    </div>
+                                    <label class="col-sm-0 control-label" style="color:red">*</label>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">IP</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="ip" class="form-control" value="{{ sqldata.ip }}">
+                                    </div>
+                                    <label class="col-sm-0 control-label" style="color:red">*</label>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">OtherIP</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="other_ip" class="form-control" value="{{ sqldata.other_ip }}">
+                                    </div>
+                                    <label class="col-sm-0 control-label" style="color:red">*</label>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">SNMP团体名</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="snmpcommunity" class="form-control" value="{{ sqldata.snmpcommunity }}">
                                     </div>
                                     <label class="col-sm-0 control-label" style="color:red">*</label>
                                 </div>
@@ -76,35 +104,40 @@
                                 <div class="hr-line-dashed"></div>
 
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">类型</label>
+                                    <label class="col-sm-2 control-label">型号</label>
                                     <div class="col-sm-6">
-                                        <input type="text" name="type" class="form-control" value="{{ sqldata.type }}">
+                                        <input type="text" name="model" class="form-control" value="{{ sqldata.model }}">
+                                    </div>
+                                    <label class="col-sm-0 control-label" style="color:red">*</label>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+
+
+
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">公司</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="company" class="form-control" value="{{ sqldata.company }}">
                                     </div>
                                     <label class="col-sm-0 control-label" style="color:red">*</label>
                                 </div>
                                 <div class="hr-line-dashed"></div>
 
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">容量</label>
+                                    <label class="col-sm-2 control-label">部门</label>
                                     <div class="col-sm-6">
-                                        <input type="text" name="capacity" class="form-control" value="{{ sqldata.capacity }}">
+                                        <input type="text" name="department" class="form-control" value="{{ sqldata.department }}">
                                     </div>
                                     <label class="col-sm-0 control-label" style="color:red">*</label>
                                 </div>
                                 <div class="hr-line-dashed"></div>
 
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">状态</label>
+                                    <label class="col-sm-2 control-label">负责人</label>
                                     <div class="col-sm-6">
-                                        <select class="form-control m-b" name="status">
-                                            {% for key,value in status.items %}
-                                                {% if key == sqldata.status %}
-                                                    <option selected="selected" value={{ key }}>{{ value }}</option>
-                                                {% else %}
-                                                    <option value={{ key }}>{{ value }}</option>
-                                                {% endif %}
-                                            {% endfor %}
-                                        </select>
+                                        <input type="text" name="principal" class="form-control" value="{{ sqldata.principal }}">
                                     </div>
                                     <label class="col-sm-0 control-label" style="color:red">*</label>
                                 </div>
@@ -125,17 +158,18 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">操作员</label>
+                                    <label class="col-sm-2 control-label">机柜位置</label>
                                     <div class="col-sm-6">
-                                        <input type="text" disabled="disabled" name="user" class="form-control" value="{{ request.user.username }}">
+                                        <input type="text" name="position" class="form-control" value="{{ sqldata.position }}">
                                     </div>
+                                    <label class="col-sm-0 control-label" style="color:red">*</label>
                                 </div>
                                 <div class="hr-line-dashed"></div>
 
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">保修期限</label>
+                                    <label class="col-sm-2 control-label">保修年限</label>
                                     <div class="col-sm-6">
-                                        <input type="text" name="guarantee" class="form-control" value="{{ sqldata.guarantee }}">
+                                        <input type="text" name="guarantee" class="form-control" value="{{ sqldata.principal }}">
                                     </div>
                                     <label class="col-sm-0 control-label" style="color:red">*</label>
                                 </div>
@@ -147,6 +181,30 @@
                                         <input type="text" name="buydate" class="form-control" value="{{ sqldata.buydate }}">
                                     </div>
                                     <label class="col-sm-0 control-label" style="color:red">*</label>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">操作员</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" disabled="disabled" name="user" class="form-control" value="{{ request.user.username }}">
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">状态</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control m-b" name="status">
+                                            {% for key,value in status.items %}
+                                                {% if key == sqldata.status %}
+                                                    <option selected="selected" value={{ key }}>{{ value }}</option>
+                                                {% else %}
+                                                    <option value={{ key }}>{{ value }}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
 

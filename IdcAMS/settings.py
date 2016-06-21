@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'idcroom',
     'server',
     'backup',
+    'network',
 ]
 
 MIDDLEWARE_CLASSES = [

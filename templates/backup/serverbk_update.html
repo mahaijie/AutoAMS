@@ -115,7 +115,7 @@
                                     <div class="col-sm-6">
                                         <select class="form-control m-b" name="idcroom_id">
                                             {% for idc in idcroom %}
-                                                {% if idc.id == sqldata.idcroom %}
+                                                {% if idc.id == sqldata.idcroom_id %}
                                                     <option selected="selected" value={{ idc.id }}>{{ idc.name }}</option>
                                                 {% else %}
                                                     <option value={{ idc.id }}>{{ idc.name }}</option>

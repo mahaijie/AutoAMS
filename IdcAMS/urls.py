@@ -11,6 +11,7 @@ urlpatterns = patterns('IdcAMS.views',
                        url(r'^', include('idcroom.urls')),  # idcroom app urls
                        url(r'^', include('server.urls')),  # server app urls
                        url(r'^', include('backup.urls')),  # backup app urls
+                       url(r'^', include('network.urls')),  # network app urls
                        )
 
 
