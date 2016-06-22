@@ -10,4 +10,6 @@ urlpatterns = patterns('network.views',
                        url(r'^network/switch/update/(?P<id>\d+)/$',  'switch_update',name='switch_update'),
                        url(r'^network/switch/del/(?P<id>\d+)/$',  'switch_del',name='switch_del'),
 
+                       url(r'^network/switch_interface/getdata/(?P<id>\d+)/$',  'switch_interface_getdata',name='switch_interface_getdata'),
+
                        )

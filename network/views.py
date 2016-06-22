@@ -2,10 +2,10 @@
 from IdcAMS import commons
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
-from .models import Switch
+from .models import Switch,SwitchInterface
 from django.contrib.auth.decorators import login_required
 from idcroom.models import Idcroom
-import json
+import json,commands
 
 
 @login_required
@@ -169,3 +169,33 @@ def switch_del(request,id):
     json_data = json.dumps({'status':True,'info':''})
 
     return HttpResponse(json_data)
+
+# 通过交换机snmp获取接口信息，并把获取的接口列表写入数据库
+# snmpwalk -v2c -c public 10.168.1.1 .1.3.6.1.2.1.2.2.1.2 | awk '{print $4}'
+def switch_interface_getdata(request,id):
+    id = int(id)
+    # 通过交换机id取得snmp团体名、IP
+    sqldata = Switch.objects.get(id=id)
+    snmpcommunity = sqldata.snmpcommunity
+    ip = sqldata.ip
+    oid = ".1.3.6.1.2.1.2.2.1.2"
+
+    # 获取接口列表
+    interfaces = commands.getstatusoutput("snmpwalk -v2c -c %s %s %s | awk '{print $4}'"%(snmpcommunity,ip,oid))
+    if interfaces[0] != 0:
+        return HttpResponse("error")
+
+    interfaces = interfaces[1]
+    interfaces = interfaces.split('\n')
+
+    # 遍历接口列表，写入数据库
+
+    n = 0
+    for name in interfaces:
+        switch_interface = SwitchInterface(
+            name = name,
+            switch_id = id,
+        )
+        switch_interface.save()
+        n += 1
+    return HttpResponse("成功插入%d个接口信息"%(n))

@@ -40,4 +40,15 @@ class Switch(models.Model):
     buydate = models.CharField('购买日期',max_length=256)
     uptime = models.DateTimeField('更新时间',auto_now=True,null=True)
 
+# 交换机接口表
+class SwitchInterface(models.Model):
+    name = models.CharField('接口名称',max_length=256)
+    cabinet = models.CharField('机柜',max_length=256)
+    position = models.CharField('机位',max_length=256)
+    user = models.CharField('操作员',max_length=256)
+    comment = models.TextField('备注',default='')
+    uptime = models.DateTimeField('更新时间',auto_now=True,null=True)
+    switch = models.ForeignKey(Switch,verbose_name='所属交换机')
+
+
 
