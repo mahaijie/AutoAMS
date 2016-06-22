@@ -183,7 +183,7 @@ def switch_interface_getdata(request,id):
     # 获取接口列表
     interfaces = commands.getstatusoutput("snmpwalk -v2c -c %s %s %s | awk '{print $4}'"%(snmpcommunity,ip,oid))
     if interfaces[0] != 0:
-        return HttpResponse("error,%s"%(interfaces))
+        return HttpResponse("error,%s"%(interfaces[1]))
 
     interfaces = interfaces[1]
     interfaces = interfaces.split('\n')
