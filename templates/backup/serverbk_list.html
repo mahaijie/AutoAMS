@@ -141,6 +141,9 @@
         <!-- Sweet alert -->
         <script src="/static/skin/js/plugins/sweetalert/sweetalert.min.js"></script>
 
+        <!-- Delete Confirm -->
+        <script src="/static/skin/js/plugins/delete-confirm/confirmdel.js"></script>
+
         <!-- Data table -->
         <script src="/static/skin/js/plugins/dataTables/datatables.min.js"></script>
 
@@ -255,31 +258,6 @@
 
         </script>
 
-        <script>
-
-            $(document).ready(function () {
-
-                $('.ConfirmDel').click(function () {
-                    delurl = $(this).attr("link");
-                    swal({
-                        title: "确认删除吗？",
-                        text: "删除后将无法恢复，请谨慎操作！",
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Yes",
-                        closeOnConfirm: false
-
-                    }, function () {
-                        top.window.location.href=delurl;
-                        swal("操作提示!", "删除进行中...！.", "success");
-
-                    });
-
-                });
-
-            });
-        </script>
         <!-- Page-Level Scripts -->
         <script>
             $(document).ready(function(){

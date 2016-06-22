@@ -3,11 +3,10 @@ from IdcAMS import commons
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from .models import Column, Article
-from django.shortcuts import redirect
-from django.core.urlresolvers import reverse
 from django import forms
 from DjangoUeditor.forms import UEditorField
 from django.contrib.auth.decorators import login_required
+import json
 
 @login_required
 @commons.permission_validate
@@ -29,15 +28,15 @@ def column_add(request):
         home_display = request.POST.get('home_display', '')
 
         if name == '' or slug == '' or intro == '':
-            mydict['mynotice'] = commons.mynotice("error","添加失败，带星号（*）表单不能为空！")
+            mydict['mynotice'] = commons.mynotice(request,"add","error","添加失败，带星号（*）表单不能为空！")
             return render(request,'news/column_add.html',mydict)
 
         if Column.objects.filter(name=name):
-            mydict['mynotice'] = commons.mynotice("error","添加失败，此分类已存在！")
+            mydict['mynotice'] = commons.mynotice(request,"add","error","添加失败，此分类已存在！")
             return render(request,'news/column_add.html',mydict)
 
         if Column.objects.filter(slug=slug):
-            mydict['mynotice'] = commons.mynotice("error","添加失败，此分类网址已存在！")
+            mydict['mynotice'] = commons.mynotice(request,"add","error","添加失败，此网址已存在！")
             return render(request,'news/column_add.html',mydict)
 
         column = Column(
@@ -48,8 +47,8 @@ def column_add(request):
             home_display = home_display,
         )
         column.save()
-
-        return HttpResponseRedirect("/news/column/list?action=add")
+        commons.mynotice(request,"add","success")
+        return HttpResponseRedirect("/news/column/list/")
 
     return render(request,'news/column_add.html',mydict)
 
@@ -78,15 +77,15 @@ def column_update(request,id):
         home_display = request.POST.get('home_display', '')
 
         if name == ''or slug == '' or intro == '':
-            mydict['mynotice'] = commons.mynotice("error","更新失败，带星号（*）表单不能为空！")
+            mydict['mynotice'] = commons.mynotice(request,"update","error","更新失败，带星号（*）表单不能为空！")
             return render(request,'news/column_update.html',mydict)
 
         if sqldata.name != name and len(Column.objects.filter(name=name)) >= 1:
-            mydict["mynotice"] = commons.mynotice("error","更新失败，此分类已存在！")
+            mydict['mynotice'] = commons.mynotice(request,"update","error","更新失败，此分类已存在！")
             return render(request,'news/column_update.html',mydict)
 
         if sqldata.slug != slug and len(Column.objects.filter(slug=slug)) > 1:
-            mydict["mynotice"] = commons.mynotice("error","更新失败，此分类网址已存在！")
+            mydict['mynotice'] = commons.mynotice(request,"update","error","更新失败，此网址已存在！")
             return render(request,'news/column_update.html',mydict)
 
         column = Column.objects.get(id = id)
@@ -97,8 +96,8 @@ def column_update(request,id):
         column.home_display = home_display
 
         column.save()
-
-        return HttpResponseRedirect("/news/column/list?action=update")
+        commons.mynotice(request,"update","success")
+        return HttpResponseRedirect("/news/column/list/")
 
     return render(request,'news/column_update.html',mydict)
 
@@ -107,9 +106,14 @@ def column_update(request,id):
 def column_del(request,id):
     id = int(id)
     data = Column.objects.get(id=id)
-    data.delete()
+    # 如果数据被其他字段引用，则不删除，弹出提示
+    #json_data = json.dumps({'status':False,'info':'此数据有正在被其他字段引用！'})
+    #return HttpResponse(json_data)
 
-    return HttpResponseRedirect("/news/column/list?action=del")
+    data.delete()
+    json_data = json.dumps({'status':True,'info':''})
+
+    return HttpResponse(json_data)
 
 @login_required
 @commons.permission_validate
@@ -151,11 +155,11 @@ def article_add(request):
         published = request.POST.get('published', '')
 
         if title == '' or content == '':
-            mydict['mynotice'] = commons.mynotice("error","添加失败，带星号（*）表单不能为空！")
+            mydict['mynotice'] = commons.mynotice(request,"add","error","添加失败，带星号（*）表单不能为空！")
             return render(request,'news/article_add.html',mydict)
 
         if Article.objects.filter(title=title):
-            mydict['mynotice'] = commons.mynotice("error","添加失败，此文章已存在！")
+            mydict['mynotice'] = commons.mynotice(request,"add","error","添加失败，此文章已存在！")
             return render(request,'news/article_add.html',mydict)
 
 
@@ -167,8 +171,8 @@ def article_add(request):
             published = published,
         )
         article.save()
-
-        return HttpResponseRedirect("/news/article/list?action=add")
+        commons.mynotice(request,"add","success")
+        return HttpResponseRedirect("/news/article/list/")
 
     return render(request,'news/article_add.html',mydict)
 
@@ -200,11 +204,11 @@ def article_update(request,id):
         published = request.POST.get('published', '')
 
         if title == '' or content == '':
-            mydict['mynotice'] = commons.mynotice("error","更新失败，带星号（*）表单不能为空！")
+            mydict['mynotice'] = commons.mynotice(request,"update","error","更新失败，带星号（*）表单不能为空！")
             return render(request,'news/article_update.html',mydict)
 
         if sqldata.title != title and len(Article.objects.filter(title=title)) >= 1:
-            mydict["mynotice"] = commons.mynotice("error","更新失败，此文章标题已存在！")
+            mydict['mynotice'] = commons.mynotice(request,"add","error","添加失败，此文章已存在！")
             return render(request,'news/article_update.html',mydict)
 
 
@@ -215,8 +219,8 @@ def article_update(request,id):
         article.published = published
 
         article.save()
-
-        return HttpResponseRedirect("/news/article/list?action=update")
+        commons.mynotice(request,"update","success")
+        return HttpResponseRedirect("/news/article/list/")
 
     return render(request,'news/article_update.html',mydict)
 
@@ -225,9 +229,14 @@ def article_update(request,id):
 def article_del(request,id):
     id = int(id)
     data = Article.objects.get(id=id)
-    data.delete()
+    # 如果数据被其他字段引用，则不删除，弹出提示
+    #json_data = json.dumps({'status':False,'info':'此数据有正在被其他字段引用！'})
+    #return HttpResponse(json_data)
 
-    return HttpResponseRedirect("/news/article/list?action=del")
+    data.delete()
+    json_data = json.dumps({'status':True,'info':''})
+
+    return HttpResponse(json_data)
 
 @login_required
 @commons.permission_validate
@@ -239,17 +248,14 @@ def article_list(request):
     for column in columns:
         columns_dict[column.id] = column.name
 
-    mynotice = ""
-    if request.method == 'GET':
-        action = request.GET.get('action')
-        if action == "add":
-            mynotice = commons.mynotice("success","恭喜您，添加成功！")
-        elif action == "update":
-            mynotice = commons.mynotice("success","恭喜您，更新成功！")
-        elif action == "del":
-            mynotice = commons.mynotice("success","恭喜您，删除成功！")
+    mydict = {'sqldata':sqldata,
+              'mynotice':'',
+              'columns_dict':columns_dict,
+              'nav_news_article_list':"true",
+              }
+    mydict['mynotice'] = commons.mynotice(request)
 
-    return render(request,'news/article_list.html',{'sqldata':sqldata,'mynotice':mynotice,'columns_dict':columns_dict,'nav_news_article_list':"true"})
+    return render(request,'news/article_list.html',mydict)
 
 @login_required
 @commons.permission_validate
@@ -265,4 +271,9 @@ def article_show(request,id):
     for column in columns:
         columns_dict[column.id] = column.name
 
-    return render(request,'news/article_show.html',{'sqldata':sqldata,'columns_dict':columns_dict,'nav_news_article_list':"true"})
+    mydict = {'sqldata':sqldata,
+              'columns_dict':columns_dict,
+              'nav_news_article_list':"true",
+              }
+
+    return render(request,'news/article_show.html',mydict)

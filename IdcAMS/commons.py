@@ -5,10 +5,28 @@ from IdcAMS.settings import PERMISSIONS
 import json,time,os,random
 
 # status: 控制右上角提示框颜色，success添加成功(绿色)，warning为添加失败(橘黄色)，error红色
-# content: 提示内容
-def mynotice(status,info):
-    if status !='' and info != '':
-        return "toastr.%s('%s')"%(status,info)
+# 通过Session记录是否更新、添加成功
+def mynotice(request,action='',status='',info=''):
+    if action == "update":
+        if status == "success":
+            request.session["update"] = True
+    elif action == "add":
+        if status == "success":
+            request.session["add"] = True
+
+    else:
+        if "add" in request.session:
+            if request.session["add"]:
+                status = "success"
+                info = "恭喜您，添加成功！"
+                request.session["add"] = False
+        if "update" in request.session:
+            if request.session["update"]:
+                status = "success"
+                info = "恭喜您，更新成功！"
+                request.session["update"] = False
+
+    return "toastr.%s('%s')"%(status,info)
 
 # list转换为字符串（逗号间隔）
 def list_to_str(list):

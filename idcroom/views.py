@@ -3,11 +3,8 @@ from IdcAMS import commons
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from .models import Idcroom
-from django.shortcuts import redirect
-from django.core.urlresolvers import reverse
-from django import forms
-from DjangoUeditor.forms import UEditorField
 from django.contrib.auth.decorators import login_required
+import json
 
 @login_required
 @commons.permission_validate
@@ -23,12 +20,12 @@ def idcroom_add(request):
         comment = request.POST.get('comment', '')
 
         if name == '' and comment == '':
-            mydict['mynotice'] = commons.mynotice("error","添加失败，带星号（*）表单不能为空！")
+            mydict['mynotice'] = commons.mynotice(request,"add","error","添加失败，带星号（*）表单不能为空！")
             return render(request,'idcroom/idcroom_add.html',mydict)
 
 
         if Idcroom.objects.filter(name=name):
-            mydict['mynotice'] = commons.mynotice("error","添加失败，此名称已存在！")
+            mydict['mynotice'] = commons.mynotice(request,"add","error","添加失败，此名称已存在！")
             return render(request,'idcroom/idcroom_add.html',mydict)
 
 
@@ -39,8 +36,8 @@ def idcroom_add(request):
             comment = comment,
         )
         idcroom.save()
-
-        return HttpResponseRedirect("/idcroom/list?action=add")
+        commons.mynotice(request,"add","success")
+        return HttpResponseRedirect("/idcroom/list/")
 
     return render(request,'idcroom/idcroom_add.html',mydict)
 
@@ -62,12 +59,12 @@ def idcroom_update(request,id):
 
 
         if name == '' and comment == '':
-            mydict['mynotice'] = commons.mynotice("error","更新失败，带星号（*）表单不能为空！")
+            mydict['mynotice'] = commons.mynotice(request,"update","error","更新失败，带星号（*）表单不能为空！")
             return render(request,'idcroom/idcroom_update.html',mydict)
 
 
         if sqldata.name != name and len(Idcroom.objects.filter(name=name)) >= 1:
-            mydict["mynotice"] = commons.mynotice("error","更新失败，此名称已存在！")
+            mydict['mynotice'] = commons.mynotice(request,"update","error","更新失败，此名称已存在！")
             return render(request,'idcroom/idcroom_update.html',mydict)
 
 
@@ -78,8 +75,8 @@ def idcroom_update(request,id):
 
 
         idcroom.save()
-
-        return HttpResponseRedirect("/idcroom/list?action=update")
+        commons.mynotice(request,"update","success")
+        return HttpResponseRedirect("/idcroom/list/")
 
     return render(request,'idcroom/idcroom_update.html',mydict)
 
@@ -88,23 +85,25 @@ def idcroom_update(request,id):
 def idcroom_del(request,id):
     id = int(id)
     data = Idcroom.objects.get(id=id)
-    data.delete()
+    # 如果数据被其他字段引用，则不删除，弹出提示
+    #json_data = json.dumps({'status':False,'info':'此数据有正在被其他字段引用！'})
+    #return HttpResponse(json_data)
 
-    return HttpResponseRedirect("/idcroom/list?action=del")
+    data.delete()
+    json_data = json.dumps({'status':True,'info':''})
+
+    return HttpResponse(json_data)
 
 @login_required
 @commons.permission_validate
 def idcroom_list(request):
     sqldata = Idcroom.objects.all()
 
-    mynotice = ""
-    if request.method == 'GET':
-        action = request.GET.get('action')
-        if action == "add":
-            mynotice = commons.mynotice("success","恭喜您，添加成功！")
-        elif action == "update":
-            mynotice = commons.mynotice("success","恭喜您，更新成功！")
-        elif action == "del":
-            mynotice = commons.mynotice("success","恭喜您，删除成功！")
+    mydict = {
+        'sqldata':sqldata,
+        'mynotice':'',
+        'nav_idcroom_list':'true',
+    }
+    mydict['mynotice'] = commons.mynotice(request)
 
-    return render(request,'idcroom/idcroom_list.html',{'sqldata':sqldata,'mynotice':mynotice,'nav_idcroom_list':"true"})
+    return render(request,'idcroom/idcroom_list.html',mydict)

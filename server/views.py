@@ -28,7 +28,7 @@ def server_update(request,id):
 
 
         if company == '' or department == '' or principal == '' or servicetype == '' or guarantee == '' or buydate == '' :
-            mydict['mynotice'] = commons.mynotice("error","更新失败，带星号（*）表单不能为空！")
+            mydict['mynotice'] = commons.mynotice(request,"update","error","更新失败，带星号（*）表单不能为空！")
             return render(request,'server/server_update.html',mydict)
 
 
@@ -44,8 +44,8 @@ def server_update(request,id):
         server.comment = comment
 
         server.save()
-
-        return HttpResponseRedirect("/server/list?action=update")
+        commons.mynotice(request,"update","success")
+        return HttpResponseRedirect("/server/list/")
 
     return render(request,'server/server_update.html',mydict)
 
@@ -72,14 +72,14 @@ def server_updatemore(request):
 
 
         if company == '' or department == '' or principal == '' or servicetype == '' or guarantee == '' or buydate == '' :
-            mydict['mynotice'] = commons.mynotice("error","更新失败，带星号（*）表单不能为空！")
+            mydict['mynotice'] = commons.mynotice(request,"update","error","更新失败，带星号（*）表单不能为空！")
             return render(request,'server/server_updatemore.html',mydict)
 
 
         moreid = commons.str_to_list(moreid) #将传过来的字符串转换为list
         Server.objects.filter(id__in = moreid).update(company=company,department=department,principal=principal,servicetype=servicetype,guarantee=guarantee,buydate=buydate,user=user,status=status,comment=comment)
-
-        return HttpResponseRedirect("/server/list?action=update")
+        commons.mynotice(request,"update","success")
+        return HttpResponseRedirect("/server/list/")
 
 
     return render(request,'server/server_updatemore.html',mydict)
@@ -94,9 +94,6 @@ def server_list(request):
               'nav_server_list':"true",
               'status':Server.STATUS,
              }
-    if request.method == 'GET':
-        action = request.GET.get('action')
-        if action == "update":
-            mydict['mynotice'] = commons.mynotice("success","恭喜您，更新成功！")
+    mydict['mynotice'] = commons.mynotice(request)
 
     return render(request,'server/server_list.html',mydict)

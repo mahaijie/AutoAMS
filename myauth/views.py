@@ -8,8 +8,7 @@ from .models import User,Group
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse,HttpResponseRedirect
-import json,string
-from django.apps import apps
+import json
 
 
 @login_required
@@ -26,11 +25,11 @@ def group_add(request):
         comment = request.POST.get('comment', '')
 
         if name == '' or commons == '':
-            mydict['mynotice'] = commons.mynotice("error","添加失败，带星号（*）表单不能为空！")
+            mydict['mynotice'] = commons.mynotice(request,"add","error","添加失败，带星号（*）表单不能为空！")
             return render(request,'myauth/group_add.html',mydict)
 
         if Group.objects.filter(name=name):
-            mydict['mynotice'] = commons.mynotice("error","添加失败，此分类已存在！")
+            mydict['mynotice'] = commons.mynotice(request,"add","error","添加失败，此分组已存在！")
             return render(request,'myauth/group_add.html',mydict)
 
 
@@ -40,7 +39,7 @@ def group_add(request):
             comment = comment,
         )
         group.save()
-
+        commons.mynotice(request,"add","success")
         return HttpResponseRedirect("/myauth/group/list?action=add")
 
     return render(request,'myauth/group_add.html',mydict)
@@ -72,11 +71,11 @@ def group_update(request,id):
         comment = request.POST.get('comment', '')
 
         if name == '' or comment == '':
-            mydict['mynotice'] = commons.mynotice("error","更新失败，带星号（*）表单不能为空！")
+            mydict['mynotice'] = commons.mynotice(request,"update","error","更新失败，带星号（*）表单不能为空！")
             return render(request,'myauth/group_update.html',mydict)
 
         if sqldata.name != name and len(Group.objects.filter(name=name)) >= 1:
-            mydict["mynotice"] = commons.mynotice("error","更新失败，此分组已存在！")
+            mydict['mynotice'] = commons.mynotice(request,"update","error","更新失败，此分组已存在！")
             return render(request,'myauth/group_update.html',mydict)
 
         mydict["permissions"] = permissions
@@ -86,7 +85,7 @@ def group_update(request,id):
         group.comment = comment
 
         group.save()
-
+        commons.mynotice(request,"update","success")
         return HttpResponseRedirect("/myauth/group/list?action=update")
 
     return render(request,'myauth/group_update.html',mydict)
@@ -96,26 +95,27 @@ def group_update(request,id):
 def group_del(request,id):
     id = int(id)
     data = Group.objects.get(id=id)
-    data.delete()
+    # 如果数据被其他字段引用，则不删除，弹出提示
+    #json_data = json.dumps({'status':False,'info':'此数据有正在被其他字段引用！'})
+    #return HttpResponse(json_data)
 
-    return HttpResponseRedirect("/myauth/group/list?action=del")
+    data.delete()
+    json_data = json.dumps({'status':True,'info':''})
+
+    return HttpResponse(json_data)
 
 @login_required
 @commons.permission_validate
 def group_list(request):
     sqldata = Group.objects.all()
 
-    mynotice = ""
-    if request.method == 'GET':
-        action = request.GET.get('action')
-        if action == "add":
-            mynotice = commons.mynotice("success","恭喜您，添加成功！")
-        elif action == "update":
-            mynotice = commons.mynotice("success","恭喜您，更新成功！")
-        elif action == "del":
-            mynotice = commons.mynotice("success","恭喜您，删除成功！")
+    mydict = {'sqldata':sqldata,
+              'mynotice':'',
+              'nav_myauth_group_list':"true",
+              }
+    mydict['mynotice'] = commons.mynotice(request)
 
-    return render(request,'myauth/group_list.html',{'sqldata':sqldata,'mynotice':mynotice,'nav_myauth_group_list':"true"})
+    return render(request,'myauth/group_list.html',mydict)
 
 
 @login_required
@@ -138,11 +138,11 @@ def user_add(request):
         is_active = request.POST.get('is_active','')
 
         if username == '' or name == '' or password == '':
-            mydict['mynotice'] = commons.mynotice("error","添加失败，带星号（*）表单不能为空！")
+            mydict['mynotice'] = commons.mynotice(request,"add","error","添加失败，带星号（*）表单不能为空！")
             return render(request,'myauth/user_add.html',mydict)
 
         if User.objects.filter(username=username):
-            mydict['mynotice'] = commons.mynotice("error","添加失败，此用户名已存在！")
+            mydict['mynotice'] = commons.mynotice(request,"add","error","添加失败，此用户名已存在！")
             return render(request,'myauth/user_add.html',mydict)
 
         try:
@@ -155,7 +155,8 @@ def user_add(request):
                 is_active = is_active,
             )
             user.save()
-            return HttpResponseRedirect("/myauth/user/list?action=add")
+            commons.mynotice(request,"add","success")
+            return HttpResponseRedirect("/myauth/user/list/")
         except Exception:
             pass
 
@@ -184,11 +185,11 @@ def user_update(request,id):
         is_active = request.POST.get('is_active','')
 
         if username == '' or name == '' or password == '':
-            mydict['mynotice'] = commons.mynotice("error","更新失败，带星号（*）表单不能为空！")
+            mydict['mynotice'] = commons.mynotice(request,"update","error","更新失败，带星号（*）表单不能为空！")
             return render(request,'myauth/user_update.html',mydict)
 
         if sqldata.username != username and len(User.objects.filter(username=username)) >= 1:
-            mydict["mynotice"] = commons.mynotice("error","更新失败，此用户名已存在！")
+            mydict['mynotice'] = commons.mynotice(request,"update","error","更新失败，此用户名已存在！")
             return render(request,'myauth/user_update.html',mydict)
 
         try:
@@ -204,7 +205,8 @@ def user_update(request,id):
             user.is_active = is_active
 
             user.save()
-            return HttpResponseRedirect("/myauth/user/list?action=update")
+            commons.mynotice(request,"update","success")
+            return HttpResponseRedirect("/myauth/user/list/")
         except Exception:
             pass
 
@@ -229,9 +231,14 @@ def user_update_json(request,id):
 def user_del(request,id):
     id = int(id)
     data = User.objects.get(id=id)
-    data.delete()
+    # 如果数据被其他字段引用，则不删除，弹出提示
+    #json_data = json.dumps({'status':False,'info':'此数据有正在被其他字段引用！'})
+    #return HttpResponse(json_data)
 
-    return HttpResponseRedirect("/myauth/user/list?action=del")
+    data.delete()
+    json_data = json.dumps({'status':True,'info':''})
+
+    return HttpResponse(json_data)
 
 @login_required
 @commons.permission_validate
@@ -243,17 +250,14 @@ def user_list(request):
     for group in groups:
         groups_dict[group.id] = group.name
 
-    mynotice = ""
-    if request.method == 'GET':
-        action = request.GET.get('action')
-        if action == "add":
-            mynotice = commons.mynotice("success","恭喜您，添加成功！")
-        elif action == "update":
-            mynotice = commons.mynotice("success","恭喜您，更新成功！")
-        elif action == "del":
-            mynotice = commons.mynotice("success","恭喜您，删除成功！")
+    mydict = {'sqldata':sqldata,
+              'mynotice':'',
+              'groups_dict':groups_dict,
+              'nav_myauth_user_list':"true",
+              }
+    mydict['mynotice'] = commons.mynotice(request)
 
-    return render(request,'myauth/user_list.html',{'sqldata':sqldata,'mynotice':mynotice,'groups_dict':groups_dict,'nav_myauth_user_list':"true"})
+    return render(request,'myauth/user_list.html',mydict)
 
 def check_user_username(request):
     username = request.GET.get("username")
@@ -274,7 +278,7 @@ def check_user_username_update(request):
     return HttpResponse(result)
 
 def login_view(request):
-    if request.user.username:
+    if request.user.is_authenticated():
         return HttpResponseRedirect("/index.html")
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -292,6 +296,7 @@ def login_view(request):
                 return render(request, 'myauth/login.html', {'status':1,'info':"您的账户未激活，请联系管理员激活！"})
         else:
             return render(request, 'myauth/login.html', {'status':2,'info':"用户名或密码错误，请重试！"})
+
     return render(request, 'myauth/login.html',{'status':0})
 
 login_required

@@ -5,6 +5,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from .models import Switch
 from django.contrib.auth.decorators import login_required
 from idcroom.models import Idcroom
+import json
 
 
 @login_required
@@ -38,8 +39,12 @@ def switch_add(request):
         comment = request.POST.get('comment', '')
 
 
-        if company == '' or department == '' or principal == '' or guarantee == '' or buydate == '' :
-            mydict['mynotice'] = commons.mynotice("error","添加失败，带星号（*）表单不能为空！")
+        if sn == '' or ip == '' or snmpcommunity == '':
+            mydict['mynotice'] = commons.mynotice(request,"add","error","添加失败，带星号（*）表单不能为空！")
+            return render(request,'network/switch_add.html',mydict)
+
+        if Switch.objects.filter(sn=sn):
+            mydict['mynotice'] = commons.mynotice(request,"add","error","添加失败，此序列号已存在！")
             return render(request,'network/switch_add.html',mydict)
 
 
@@ -64,8 +69,9 @@ def switch_add(request):
 
 
         switch.save()
+        commons.mynotice(request,"add","success")
 
-        return HttpResponseRedirect("/network/switch/list?action=add")
+        return HttpResponseRedirect("/network/switch/list/")
 
     return render(request,'network/switch_add.html',mydict)
 
@@ -102,10 +108,13 @@ def switch_update(request,id):
         comment = request.POST.get('comment', '')
 
 
-        if company == '' or department == '' or principal == '' or guarantee == '' or buydate == '' :
-            mydict['mynotice'] = commons.mynotice("error","更新失败，带星号（*）表单不能为空！")
+        if sn == '' or ip == '' or snmpcommunity == '':
+            mydict['mynotice'] = commons.mynotice(request,"update","error","更新失败，带星号（*）表单不能为空！")
             return render(request,'network/switch_update.html',mydict)
 
+        if sqldata.sn != sn and len(Switch.objects.filter(sn=sn)) >= 1:
+            mydict['mynotice'] = commons.mynotice(request,"update","error","更新失败，此序列号已存在！")
+            return render(request,'network/switch_update.html',mydict)
 
         switch = Switch.objects.get(id = id)
         switch.sn = sn
@@ -126,8 +135,8 @@ def switch_update(request,id):
         switch.comment = comment
 
         switch.save()
-
-        return HttpResponseRedirect("/network/switch/list?action=update")
+        commons.mynotice(request,"update","success")
+        return HttpResponseRedirect("/network/switch/list/")
 
     return render(request,'network/switch_update.html',mydict)
 
@@ -140,13 +149,23 @@ def switch_list(request):
               'mynotice':'',
               'nav_switch_list':"true",
               'status':Switch.STATUS,
-              'nav_network_switch_list':"true"
+              'nav_network_switch_list':"true",
              }
-    if request.method == 'GET':
-        action = request.GET.get('action')
-        if action == "update":
-            mydict['mynotice'] = commons.mynotice("success","恭喜您，更新成功！")
-        elif action == "add":
-            mydict['mynotice'] = commons.mynotice("success","恭喜您，添加成功！")
+    mydict['mynotice'] = commons.mynotice(request)
+
 
     return render(request,'network/switch_list.html',mydict)
+
+@login_required
+@commons.permission_validate
+def switch_del(request,id):
+    id = int(id)
+    data = Switch.objects.get(id=id)
+    # 如果数据被其他字段引用，则不删除，弹出提示
+    #json_data = json.dumps({'status':False,'info':'此数据有正在被其他字段引用！'})
+    #return HttpResponse(json_data)
+
+    data.delete()
+    json_data = json.dumps({'status':True,'info':''})
+
+    return HttpResponse(json_data)

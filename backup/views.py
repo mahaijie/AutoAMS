@@ -34,12 +34,12 @@ def serverbk_add(request):
 
 
         if sn == '' or brand == '' or model == '' or cpu == '' or memory == '' or disk == '' or guarantee == '' or buydate == '':
-            mydict['mynotice'] = commons.mynotice("error","添加失败，带星号（*）表单不能为空！")
+            mydict['mynotice'] = commons.mynotice(request,"add","error","添加失败，带星号（*）表单不能为空！")
             return render(request,'backup/serverbk_add.html',mydict)
 
 
         if Serverbk.objects.filter(sn=sn):
-            mydict['mynotice'] = commons.mynotice("error","添加失败，此序列号已存在！")
+            mydict['mynotice'] = commons.mynotice(request,"add","error","添加失败，此序列号已存在！")
             return render(request,'backup/serverbk_add.html',mydict)
 
 
@@ -58,8 +58,8 @@ def serverbk_add(request):
             buydate = buydate,
         )
         serverbk.save()
-
-        return HttpResponseRedirect("/backup/serverbk/list?action=add")
+        commons.mynotice(request,"add","success")
+        return HttpResponseRedirect("/backup/serverbk/list/")
 
     return render(request,'backup/serverbk_add.html',mydict)
 
@@ -91,12 +91,12 @@ def serverbk_update(request,id):
 
 
         if sn == '' or brand == '' or model == '' or cpu == '' or memory == '' or disk == '' or guarantee == '' or buydate == '':
-            mydict['mynotice'] = commons.mynotice("error","更新失败，带星号（*）表单不能为空！")
+            mydict['mynotice'] = commons.mynotice(request,"update","error","更新失败，带星号（*）表单不能为空！")
             return render(request,'backup/serverbk_update.html',mydict)
 
 
         if sqldata.sn != sn and len(Idcroom.objects.filter(sn=sn)) >= 1:
-            mydict["mynotice"] = commons.mynotice("error","更新失败，此序列号已存在！")
+            mydict['mynotice'] = commons.mynotice(request,"update","error","更新失败，此序列号已存在！")
             return render(request,'backup/serverbk_update.html',mydict)
 
 
@@ -114,8 +114,8 @@ def serverbk_update(request,id):
         serverbk.buydate = buydate
 
         serverbk.save()
-
-        return HttpResponseRedirect("/backup/serverbk/list?action=update")
+        commons.mynotice(request,"update","success")
+        return HttpResponseRedirect("/backup/serverbk/list/")
 
     return render(request,'backup/serverbk_update.html',mydict)
 
@@ -124,9 +124,14 @@ def serverbk_update(request,id):
 def serverbk_del(request,id):
     id = int(id)
     data = Serverbk.objects.get(id=id)
-    data.delete()
+    # 如果数据被其他字段引用，则不删除，弹出提示
+    #json_data = json.dumps({'status':False,'info':'此数据有正在被其他字段引用！'})
+    #return HttpResponse(json_data)
 
-    return HttpResponseRedirect("/backup/serverbk/list?action=del")
+    data.delete()
+    json_data = json.dumps({'status':True,'info':''})
+
+    return HttpResponse(json_data)
 
 @login_required
 @commons.permission_validate
@@ -140,23 +145,19 @@ def serverbk_list(request):
         idcroom_dict[idc.id] = idc.name
 
     if request.method == 'POST':
-        #file = request.FILES['file']
         if request.FILES['file']:
             filepath = commons.handle_upload_file(request.FILES['file'])
         return HttpResponseRedirect('backup/serverbk/list')
 
 
-    mynotice = ""
-    if request.method == 'GET':
-        action = request.GET.get('action')
-        if action == "add":
-            mynotice = commons.mynotice("success","恭喜您，添加成功！")
-        elif action == "update":
-            mynotice = commons.mynotice("success","恭喜您，更新成功！")
-        elif action == "del":
-            mynotice = commons.mynotice("success","恭喜您，删除成功！")
+    mydict = {'sqldata':sqldata,
+              'mynotice':'',
+              'idcroom_dict':idcroom_dict,
+              'nav_backup_serverbk_list':"true"
+             }
+    mydict['mynotice'] = commons.mynotice(request)
 
-    return render(request,'backup/serverbk_list.html',{'sqldata':sqldata,'mynotice':mynotice,'idcroom_dict':idcroom_dict,'nav_backup_serverbk_list':"true"})
+    return render(request,'backup/serverbk_list.html',mydict)
 
 
 #解析Excel文件,并批量添加到数据库,序列号已存在的不添加但更新，并生成提示
@@ -249,10 +250,8 @@ def serverbk_addmore(request):
             time.sleep(2)
             json_data = json.dumps({"error":0,"info":"成功导入%d台服务器备件，更新%d台服务器备件"%(add,update)})
             return HttpResponse(json_data)
-            #return HttpResponseRedirect('backup/serverbk/list')
 
         except Exception,e:
-            #print str(e)
             time.sleep(2)
             json_data = json.dumps({"error":1,"info":"导入出错，请联系管理员或者检查Excel文件格式是否与系统提供的模板一致并重新操作，错误代码：%s"%(str(e))})
             return HttpResponse(json_data)
@@ -290,15 +289,13 @@ def diskbk_add(request):
 
 
         if sn == '' or brand == '' or type == '' or capacity == '' or guarantee == '' or buydate == '':
-            mydict['mynotice'] = commons.mynotice("error","添加失败，带星号（*）表单不能为空！")
+            mydict['mynotice'] = commons.mynotice(request,"add","error","添加失败，带星号（*）表单不能为空！")
             return render(request,'backup/diskbk_add.html',mydict)
 
 
         if Diskbk.objects.filter(sn=sn):
-            mydict['mynotice'] = commons.mynotice("error","添加失败，此序列号已存在！")
+            mydict['mynotice'] = commons.mynotice(request,"add","error","添加失败，此序列号已存在！")
             return render(request,'backup/diskbk_add.html',mydict)
-
-
 
         diskbk = Diskbk(
             sn = sn,
@@ -313,8 +310,8 @@ def diskbk_add(request):
             buydate = buydate,
         )
         diskbk.save()
-
-        return HttpResponseRedirect("/backup/diskbk/list?action=add")
+        commons.mynotice(request,"add","success")
+        return HttpResponseRedirect("/backup/diskbk/list/")
 
     return render(request,'backup/diskbk_add.html',mydict)
 
@@ -353,12 +350,12 @@ def diskbk_update(request,id):
 
 
         if sn == '' or brand == '' or type == '' or capacity == '' or guarantee == '' or buydate == '':
-            mydict['mynotice'] = commons.mynotice("error","更新失败，带星号（*）表单不能为空！")
+            mydict['mynotice'] = commons.mynotice(request,"update","error","更新失败，带星号（*）表单不能为空！")
             return render(request,'backup/diskbk_update.html',mydict)
 
 
         if sqldata.sn != sn and len(Idcroom.objects.filter(sn=sn)) >= 1:
-            mydict["mynotice"] = commons.mynotice("error","更新失败，此序列号已存在！")
+            mydict['mynotice'] = commons.mynotice(request,"update","error","更新失败，此序列号已存在！")
             return render(request,'backup/diskbk_update.html',mydict)
 
 
@@ -375,8 +372,8 @@ def diskbk_update(request,id):
         diskbk.buydate = buydate
 
         diskbk.save()
-
-        return HttpResponseRedirect("/backup/diskbk/list?action=update")
+        commons.mynotice(request,"update","success")
+        return HttpResponseRedirect("/backup/diskbk/list/")
 
     return render(request,'backup/diskbk_update.html',mydict)
 
@@ -385,9 +382,14 @@ def diskbk_update(request,id):
 def diskbk_del(request,id):
     id = int(id)
     data = Diskbk.objects.get(id=id)
-    data.delete()
+    # 如果数据被其他字段引用，则不删除，弹出提示
+    #json_data = json.dumps({'status':False,'info':'此数据有正在被其他字段引用！'})
+    #return HttpResponse(json_data)
 
-    return HttpResponseRedirect("/backup/diskbk/list?action=del")
+    data.delete()
+    json_data = json.dumps({'status':True,'info':''})
+
+    return HttpResponse(json_data)
 
 @login_required
 @commons.permission_validate
@@ -407,24 +409,16 @@ def diskbk_list(request):
     for idc in idcroom:
         idcroom_dict[idc.id] = idc.name
 
-    if request.method == 'POST':
-        #file = request.FILES['file']
-        if request.FILES['file']:
-            filepath = commons.handle_upload_file(request.FILES['file'])
-        return HttpResponseRedirect('backup/diskbk/list')
 
+    mydict = {'sqldata':sqldata,
+              'mynotice':'',
+              'idcroom_dict':idcroom_dict,
+              'status':STATUS,
+              'nav_backup_diskbk_list':"true"
+             }
+    mydict['mynotice'] = commons.mynotice(request)
 
-    mynotice = ""
-    if request.method == 'GET':
-        action = request.GET.get('action')
-        if action == "add":
-            mynotice = commons.mynotice("success","恭喜您，添加成功！")
-        elif action == "update":
-            mynotice = commons.mynotice("success","恭喜您，更新成功！")
-        elif action == "del":
-            mynotice = commons.mynotice("success","恭喜您，删除成功！")
-
-    return render(request,'backup/diskbk_list.html',{'sqldata':sqldata,'mynotice':mynotice,'idcroom_dict':idcroom_dict,'status':STATUS,'nav_backup_diskbk_list':"true"})
+    return render(request,'backup/diskbk_list.html',mydict)
 
 
 #解析Excel文件,并批量添加到数据库,序列号已存在的不添加但更新，并生成提示
@@ -555,12 +549,12 @@ def memorybk_add(request):
 
 
         if sn == '' or brand == '' or type == '' or capacity == '' or guarantee == '' or buydate == '':
-            mydict['mynotice'] = commons.mynotice("error","添加失败，带星号（*）表单不能为空！")
+            mydict['mynotice'] = commons.mynotice(request,"add","error","添加失败，带星号（*）表单不能为空！")
             return render(request,'backup/memorybk_add.html',mydict)
 
 
         if Memorybk.objects.filter(sn=sn):
-            mydict['mynotice'] = commons.mynotice("error","添加失败，此序列号已存在！")
+            mydict['mynotice'] = commons.mynotice(request,"add","error","添加失败，此序列号已存在！")
             return render(request,'backup/memorybk_add.html',mydict)
 
 
@@ -578,8 +572,8 @@ def memorybk_add(request):
             buydate = buydate,
         )
         memorybk.save()
-
-        return HttpResponseRedirect("/backup/memorybk/list?action=add")
+        commons.mynotice(request,"add","success")
+        return HttpResponseRedirect("/backup/memorybk/list/")
 
     return render(request,'backup/memorybk_add.html',mydict)
 
@@ -618,12 +612,7 @@ def memorybk_update(request,id):
 
 
         if sn == '' or brand == '' or type == '' or capacity == '' or guarantee == '' or buydate == '':
-            mydict['mynotice'] = commons.mynotice("error","更新失败，带星号（*）表单不能为空！")
-            return render(request,'backup/memorybk_update.html',mydict)
-
-
-        if sqldata.sn != sn and len(Idcroom.objects.filter(sn=sn)) >= 1:
-            mydict["mynotice"] = commons.mynotice("error","更新失败，此序列号已存在！")
+            mydict['mynotice'] = commons.mynotice(request,"update","error","更新失败，带星号（*）表单不能为空！")
             return render(request,'backup/memorybk_update.html',mydict)
 
 
@@ -640,8 +629,8 @@ def memorybk_update(request,id):
         memorybk.buydate = buydate
 
         memorybk.save()
-
-        return HttpResponseRedirect("/backup/memorybk/list?action=update")
+        commons.mynotice(request,"update","success")
+        return HttpResponseRedirect("/backup/memorybk/list/")
 
     return render(request,'backup/memorybk_update.html',mydict)
 
@@ -650,9 +639,14 @@ def memorybk_update(request,id):
 def memorybk_del(request,id):
     id = int(id)
     data = Memorybk.objects.get(id=id)
-    data.delete()
+    # 如果数据被其他字段引用，则不删除，弹出提示
+    #json_data = json.dumps({'status':False,'info':'此数据有正在被其他字段引用！'})
+    #return HttpResponse(json_data)
 
-    return HttpResponseRedirect("/backup/memorybk/list?action=del")
+    data.delete()
+    json_data = json.dumps({'status':True,'info':''})
+
+    return HttpResponse(json_data)
 
 @login_required
 @commons.permission_validate
@@ -672,24 +666,16 @@ def memorybk_list(request):
     for idc in idcroom:
         idcroom_dict[idc.id] = idc.name
 
-    if request.method == 'POST':
-        #file = request.FILES['file']
-        if request.FILES['file']:
-            filepath = commons.handle_upload_file(request.FILES['file'])
-        return HttpResponseRedirect('backup/memorybk/list')
+    mydict = {'sqldata':sqldata,
+              'mynotice':'',
+              'idcroom_dict':idcroom_dict,
+              'status':STATUS,
+              'nav_backup_memorybk_list':"true"
+             }
 
+    mydict['mynotice'] = commons.mynotice(request)
 
-    mynotice = ""
-    if request.method == 'GET':
-        action = request.GET.get('action')
-        if action == "add":
-            mynotice = commons.mynotice("success","恭喜您，添加成功！")
-        elif action == "update":
-            mynotice = commons.mynotice("success","恭喜您，更新成功！")
-        elif action == "del":
-            mynotice = commons.mynotice("success","恭喜您，删除成功！")
-
-    return render(request,'backup/memorybk_list.html',{'sqldata':sqldata,'mynotice':mynotice,'idcroom_dict':idcroom_dict,'status':STATUS,'nav_backup_memorybk_list':"true"})
+    return render(request,'backup/memorybk_list.html',mydict)
 
 
 #解析Excel文件,并批量添加到数据库,序列号已存在的不添加但更新，并生成提示
@@ -747,10 +733,8 @@ def memorybk_addmore(request):
             time.sleep(2)
             json_data = json.dumps({"error":0,"info":"成功导入%d条内存备件"%(add)})
             return HttpResponse(json_data)
-            #return HttpResponseRedirect('backup/memorybk/list')
 
         except Exception,e:
-            #print str(e)
             time.sleep(2)
             json_data = json.dumps({"error":1,"info":"导入出错，请联系管理员或者检查Excel文件格式是否与系统提供的模板一致并重新操作，错误代码：%s"%(str(e))})
             return HttpResponse(json_data)
