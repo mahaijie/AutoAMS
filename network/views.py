@@ -2,7 +2,7 @@
 # Author:马海杰
 # Email:mahaijie123@163.com
 
-from IdcAMS import commons
+from AutoAMS import commons
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from .models import Switch,SwitchInterface

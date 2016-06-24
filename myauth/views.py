@@ -2,8 +2,8 @@
 # Author:马海杰
 # Email:mahaijie123@163.com
 
-from IdcAMS import commons
-from IdcAMS.settings import PERMISSIONS #导入自定义权限字典
+from AutoAMS import commons
+from AutoAMS.settings import PERMISSIONS #导入自定义权限字典
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from .models import User,Group

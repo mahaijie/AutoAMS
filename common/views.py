@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse,HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 import json,datetime,os,time,random
-from IdcAMS import settings
+from AutoAMS import settings
 
 # Create your views here.
 

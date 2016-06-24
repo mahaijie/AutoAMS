@@ -6,7 +6,7 @@ from django.conf.urls import url, include, patterns
 from DjangoUeditor import urls as DjangoUeditor_urls
 from django.conf import settings
 
-urlpatterns = patterns('IdcAMS.views',
+urlpatterns = patterns('AutoAMS.views',
 
                        url(r'^ueditor/', include(DjangoUeditor_urls)),  # Ueditor
                        url(r'^', include('common.urls')),  # common app urls(index,login,logout...)

@@ -9,7 +9,7 @@ import datetime
 import random
 import urllib
 from django.utils import six
-from IdcAMS import commons
+from AutoAMS import commons
 
 if six.PY3:
     long = int

@@ -4,7 +4,7 @@
 
 from django.shortcuts import render
 from myauth.models import User,Group
-from IdcAMS.settings import PERMISSIONS
+from AutoAMS.settings import PERMISSIONS
 import json,time,os,random
 
 # status: 控制右上角提示框颜色，success添加成功(绿色)，warning为添加失败(橘黄色)，error红色
