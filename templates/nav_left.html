@@ -10,7 +10,9 @@
                                 <span class="text-muted text-xs block">
                                     {{ request.user.name }}
                                     <b class="caret"></b>
-                                </span> </span> </a>
+                                </span>
+                            </span>
+                    </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
                         <li><a href="/myauth/user/update/{{ request.user.id }}">用户信息</a></li>
                         <li><a href="/myauth/user/update/{{ request.user.id }}">修改密码</a></li>
@@ -19,7 +21,7 @@
                     </ul>
                 </div>
                 <div class="logo-element">
-                    资产+
+                    Auto+
                 </div>
             </li>
             <li>
