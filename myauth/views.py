@@ -1,4 +1,6 @@
-# coding: utf-8
+# -*- coding: utf-8 -*-
+# Author:马海杰
+# Email:mahaijie123@163.com
 
 from IdcAMS import commons
 from IdcAMS.settings import PERMISSIONS #导入自定义权限字典

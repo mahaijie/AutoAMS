@@ -1,4 +1,6 @@
-# coding: utf-8
+# -*- coding: utf-8 -*-
+# Author:马海杰
+# Email:mahaijie123@163.com
 
 from django.db import models
 from django.contrib.auth.models import AbstractUser

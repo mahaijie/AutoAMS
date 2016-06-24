@@ -92,115 +92,116 @@
 
 
 </div>
-    {% block script %}
+{% endblock %}
 
-        <!-- Data picker -->
-        <script src="/static/skin/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+{% block script %}
 
-        <!-- FooTable -->
-        <script src="/static/skin/js/plugins/footable/footable.all.min.js"></script>
+    <!-- Data picker -->
+    <script src="/static/skin/js/plugins/datapicker/bootstrap-datepicker.js"></script>
 
-        <!-- Toastr script -->
-        <script src="/static/skin/js/plugins/toastr/toastr.min.js"></script>
+    <!-- FooTable -->
+    <script src="/static/skin/js/plugins/footable/footable.all.min.js"></script>
 
-        <!-- Sweet alert -->
-        <script src="/static/skin/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <!-- Toastr script -->
+    <script src="/static/skin/js/plugins/toastr/toastr.min.js"></script>
 
-        <!-- Delete Confirm -->
-        <script src="/static/skin/js/plugins/delete-confirm/confirmdel.js"></script>
+    <!-- Sweet alert -->
+    <script src="/static/skin/js/plugins/sweetalert/sweetalert.min.js"></script>
 
-        <!-- Data table -->
-        <script src="/static/skin/js/plugins/dataTables/datatables.min.js"></script>
+    <!-- Delete Confirm -->
+    <script src="/static/skin/js/plugins/delete-confirm/confirmdel.js"></script>
 
-        <!-- Page-Level Scripts -->
-        <script>
-            $(document).ready(function() {
+    <!-- Data table -->
+    <script src="/static/skin/js/plugins/dataTables/datatables.min.js"></script>
 
-                $('.footable').footable();
+    <!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function() {
 
-                $('#date_added').datepicker({
-                    todayBtn: "linked",
-                    keyboardNavigation: false,
-                    forceParse: false,
-                    calendarWeeks: true,
-                    autoclose: true
-                });
+            $('.footable').footable();
 
-                $('#date_modified').datepicker({
-                    todayBtn: "linked",
-                    keyboardNavigation: false,
-                    forceParse: false,
-                    calendarWeeks: true,
-                    autoclose: true
-                });
-
+            $('#date_added').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true
             });
 
-        </script>
-
-        <script>
-
-            $(document).ready(function() {
-                setTimeout(function() {
-                    toastr.options = {
-                        "closeButton": true,
-                        "debug": false,
-                        "progressBar": true,
-                        "preventDuplicates": false,
-                        "positionClass": "toast-top-right",
-                        "onclick": null,
-                        "showDuration": "100",
-                        "hideDuration": "1000",
-                        "timeOut": "6000",
-                        "extendedTimeOut": "1000",
-                        "showEasing": "swing",
-                        "hideEasing": "linear",
-                        "showMethod": "fadeIn",
-                        "hideMethod": "fadeOut"
-                    };
-
-                    {% autoescape off %} {{ mynotice }} {% endautoescape %}
-
-                }, 1300);
-
+            $('#date_modified').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true
             });
 
-        </script>
+        });
 
-        <!-- Page-Level Scripts -->
-        <script>
-            $(document).ready(function(){
-                $('.dataTables-config').DataTable({
-                    //"dom": '<"html5buttons"B>lTfgtip',
-                    "iDisplayLength": 10,
-                    "lengthMenu": [[10,25,50,100,500,1000,-1], [10,25,50,100,500,1000,"all"]],
-                    "sPaginationType": "full_numbers",
-                    "language": {
-                        url:'/static/skin/js/plugins/dataTables/Chinese.json'
-                    },
-                    "buttons": [
-                        {extend: 'copy'},
-                        //{extend: 'csv'},
-                        {extend: 'excel'},
-                        //{extend: 'pdf', title: 'ExampleFile'},
+    </script>
 
-                        {extend: 'print',
-                         customize: function (win){
-                                $(win.document.body).addClass('white-bg');
-                                $(win.document.body).css('font-size', '10px');
+    <script>
 
-                                $(win.document.body).find('table')
-                                        .addClass('compact')
-                                        .css('font-size', 'inherit');
-                            }
+        $(document).ready(function() {
+            setTimeout(function() {
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "progressBar": true,
+                    "preventDuplicates": false,
+                    "positionClass": "toast-top-right",
+                    "onclick": null,
+                    "showDuration": "100",
+                    "hideDuration": "1000",
+                    "timeOut": "6000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+
+                {% autoescape off %} {{ mynotice }} {% endautoescape %}
+
+            }, 1300);
+
+        });
+
+    </script>
+
+    <!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function(){
+            $('.dataTables-config').DataTable({
+                //"dom": '<"html5buttons"B>lTfgtip',
+                "iDisplayLength": 10,
+                "lengthMenu": [[10,25,50,100,500,1000,-1], [10,25,50,100,500,1000,"all"]],
+                "sPaginationType": "full_numbers",
+                "language": {
+                    url:'/static/skin/js/plugins/dataTables/Chinese.json'
+                },
+                "buttons": [
+                    {extend: 'copy'},
+                    //{extend: 'csv'},
+                    {extend: 'excel'},
+                    //{extend: 'pdf', title: 'ExampleFile'},
+
+                    {extend: 'print',
+                     customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
                         }
-                    ]
-
-                });
-
+                    }
+                ]
 
             });
 
-        </script>
-    {% endblock %}
+
+        });
+
+    </script>
 {% endblock %}

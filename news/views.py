@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+# Author:马海杰
+# Email:mahaijie123@163.com
+
 from IdcAMS import commons
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect

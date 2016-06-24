@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+# Author:马海杰
+# Email:mahaijie123@163.com
+
 from IdcAMS import commons
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
@@ -97,3 +100,15 @@ def server_list(request):
     mydict['mynotice'] = commons.mynotice(request)
 
     return render(request,'server/server_list.html',mydict)
+
+@login_required
+@commons.permission_validate
+def server_view(request,id):
+    sqldata = Server.objects.get(id=id)
+
+    mydict = {"sqldata":sqldata,
+              "mynotice":"", # 状态提示条
+              'status':Server.STATUS,
+             }
+
+    return render(request,'server/server_view.html',mydict)

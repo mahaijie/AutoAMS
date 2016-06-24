@@ -39,22 +39,24 @@
         </div>
     </div>
 </div>
-    {% block script %}
-        <!-- ChartJS-->
-        <script src="/static/skin/js/plugins/chartJs/Chart.min.js"></script>
-        <script src="/static/skin/js/demo/chartjs-demo.js"></script>
-        <!-- Sweet alert -->
-        <script src="/static/skin/js/plugins/sweetalert/sweetalert.min.js"></script>
-        <script>
-                swal({
-                    title: "访问受限",
-                    text: "抱歉，您无权操作 “{{ info }}” 功能！\n请联系管理员授权",
-                    type: "error",
 
-                },function() {
-                    history.go(-1);
-                });
+{% endblock %}
 
-        </script>
-    {% endblock %}
+{% block script %}
+    <!-- ChartJS-->
+    <script src="/static/skin/js/plugins/chartJs/Chart.min.js"></script>
+    <script src="/static/skin/js/demo/chartjs-demo.js"></script>
+    <!-- Sweet alert -->
+    <script src="/static/skin/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script>
+            swal({
+                title: "访问受限",
+                text: "抱歉，您无权操作 “{{ info }}” 功能！\n请联系管理员授权",
+                type: "error",
+
+            },function() {
+                history.go(-1);
+            });
+
+    </script>
 {% endblock %}

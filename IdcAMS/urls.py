@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+# Author:马海杰
+# Email:mahaijie123@163.com
+
 from django.conf.urls import url, include, patterns
 from DjangoUeditor import urls as DjangoUeditor_urls
 from django.conf import settings

@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+# Author:马海杰
+# Email:mahaijie123@163.com
+
 """
 Django settings for IdcAMS project.
 
@@ -185,6 +188,7 @@ PERMISSIONS = {
     "server_list":"服务器列表",
     "server_update":"服务器属性更新",
     "server_updatemore":"服务器属性批量更新",
+    "server_view":"服务器详情",
 
     # backup app
     "serverbk_add":"服务器备件添加",
@@ -210,6 +214,7 @@ PERMISSIONS = {
     "switch_update":"交换机更新",
     "switch_del":"交换机删除",
     "switch_list":"交换机列表",
+    "switch_view":"交换机详情",
 
 }
 

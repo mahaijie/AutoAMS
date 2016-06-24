@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+# Author:马海杰
+# Email:mahaijie123@163.com
+
 from IdcAMS import commons
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
@@ -155,6 +158,21 @@ def switch_list(request):
 
 
     return render(request,'network/switch_list.html',mydict)
+
+@login_required
+@commons.permission_validate
+def switch_view(request,id):
+    sqldata = Switch.objects.get(id=id)
+    idcroom = Idcroom.objects.all() # 获取机房列表
+
+    mydict = {"sqldata":sqldata,
+              "mynotice":"", # 状态提示条
+              'status':Switch.STATUS,
+              "idcroom":idcroom,
+             }
+
+    return render(request,'network/switch_view.html',mydict)
+
 
 @login_required
 @commons.permission_validate

@@ -21,83 +21,289 @@
             <div class="col-lg-2">
 
             </div>
-        </div>
-        <div class="wrapper wrapper-content animated fadeInRight">
-            <div class="row">
+    </div>
 
-                <div class="col-lg-6">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>曲线图
-                                <small>自定义颜色</small>
-                            </h5>
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <h5>内存使用量</h5>
+                        <h2>65%</h2>
+                        <div class="progress progress-mini">
+                            <div style="width: 68%;" class="progress-bar"></div>
                         </div>
-                        <div class="ibox-content">
-                            <div>
-                                <canvas id="lineChart" height="140"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>柱状图</h5>
-                        </div>
-                        <div class="ibox-content">
-                            <div>
-                                <canvas id="barChart" height="140"></canvas>
-                            </div>
-                        </div>
+
+                        <div class="m-t-sm small">当前使用百分比.</div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>极线图</h5>
 
+            <div class="col-lg-3">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <h5>硬盘使用量</h5>
+                        <h2>50%</h2>
+                        <div class="progress progress-mini">
+                            <div style="width: 78%;" class="progress-bar"></div>
                         </div>
-                        <div class="ibox-content">
-                            <div class="text-center">
-                                <canvas id="polarChart" height="140"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>环形图</h5>
 
-                        </div>
-                        <div class="ibox-content">
-                            <div>
-                                <canvas id="doughnutChart" height="140"></canvas>
-                            </div>
-                        </div>
+                        <div class="m-t-sm small">当前使用百分比.</div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>雷达图</h5>
+
+            <div class="col-lg-3">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <h5>CPU使用量</h5>
+                        <h2>14%</h2>
+                        <div class="progress progress-mini">
+                            <div style="width: 38%;" class="progress-bar progress-bar-danger"></div>
                         </div>
-                        <div class="ibox-content">
-                            <div>
-                                <canvas id="radarChart"></canvas>
-                            </div>
+
+                        <div class="m-t-sm small">当前使用百分比.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <h5>服务器负载</h5>
+                        <h2>20%</h2>
+                        <div class="progress progress-mini">
+                            <div style="width: 28%;" class="progress-bar progress-bar-danger"></div>
                         </div>
+
+                        <div class="m-t-sm small">当前负载.</div>
                     </div>
                 </div>
             </div>
         </div>
-    {% block script %}
-        <!-- ChartJS-->
-        <script src="/static/skin/js/plugins/chartJs/Chart.min.js"></script>
-        <script src="/static/skin/js/demo/chartjs-demo.js"></script>
-    {% endblock %}
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <h5>应用运维</h5>
+                        <table class="table table-stripped small m-t-md">
+                            <tbody>
+                            <tr>
+                                <td class="no-borders">
+                                    <i class="fa fa-circle text-navy"></i>
+                                </td>
+                                <td  class="no-borders">
+                                    Example element 1
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <i class="fa fa-circle text-navy"></i>
+                                </td>
+                                <td>
+                                    Example element 2
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <i class="fa fa-circle text-navy"></i>
+                                </td>
+                                <td>
+                                    Example element 3
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <h5>机房运维</h5>
+                        <table class="table table-stripped small m-t-md">
+                            <tbody>
+                            <tr>
+                                <td class="no-borders">
+                                    <i class="fa fa-circle text-navy"></i>
+                                </td>
+                                <td  class="no-borders">
+                                    Example element 1
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <i class="fa fa-circle text-navy"></i>
+                                </td>
+                                <td>
+                                    Example element 2
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <i class="fa fa-circle text-navy"></i>
+                                </td>
+                                <td>
+                                    Example element 3
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <h5>网络运维</h5>
+                        <table class="table table-stripped small m-t-md">
+                            <tbody>
+                            <tr>
+                                <td class="no-borders">
+                                    <i class="fa fa-circle text-danger"></i>
+                                </td>
+                                <td  class="no-borders">
+                                    Example element 1
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <i class="fa fa-circle text-danger"></i>
+                                </td>
+                                <td>
+                                    Example element 2
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <i class="fa fa-circle text-danger"></i>
+                                </td>
+                                <td>
+                                    Example element 3
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <h5>运维开发</h5>
+                        <table class="table table-stripped small m-t-md">
+                            <tbody>
+                            <tr>
+                                <td class="no-borders">
+                                    <i class="fa fa-circle text-danger"></i>
+                                </td>
+                                <td  class="no-borders">
+                                    Example element 1
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <i class="fa fa-circle text-danger"></i>
+                                </td>
+                                <td>
+                                    Example element 2
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <i class="fa fa-circle text-danger"></i>
+                                </td>
+                                <td>
+                                    Example element 3
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+
+            <div class="col-lg-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>曲线图
+                            <small>自定义颜色</small>
+                        </h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div>
+                            <canvas id="lineChart" height="140"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>柱状图</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div>
+                            <canvas id="barChart" height="140"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>极线图</h5>
+
+                    </div>
+                    <div class="ibox-content">
+                        <div class="text-center">
+                            <canvas id="polarChart" height="140"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>环形图</h5>
+
+                    </div>
+                    <div class="ibox-content">
+                        <div>
+                            <canvas id="doughnutChart" height="140"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>雷达图</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div>
+                            <canvas id="radarChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block script %}
+    <!-- ChartJS-->
+    <script src="/static/skin/js/plugins/chartJs/Chart.min.js"></script>
+    <script src="/static/skin/js/demo/chartjs-demo.js"></script>
+
 {% endblock %}
