@@ -1,1 +1,1 @@
-# IdcAMS
+# AutoAMS
