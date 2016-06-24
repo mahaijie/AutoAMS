@@ -64,63 +64,63 @@
                 <tbody>
                 <tr>
                     <th width="100">序列号:</th>
-                    <td>SANNA2A</td>
+                    <td>{{ sqldata.sn }}</td>
                     <th width="100">品牌型号:</th>
-                    <td>Dell R730</td>
+                    <td>{{ sqldata.brand }} {{ sqldata.model }}</td>
                 </tr>
 
                 <tr>
                     <th>IP:</th>
-                    <td>192.168.1.100</td>
+                    <td>{{ sqldata.ip }}</td>
                     <th>管理IP:</th>
-                    <td>172.16.1.100</td>
+                    <td>{{ sqldata.manage_ip }}</td>
                 </tr>
 
                 <tr>
                     <th>系统:</th>
-                    <td>CentOS release 6.4 (Santiago)</td>
+                    <td>{{ sqldata.system }}</td>
                     <th>CPU:</th>
-                    <td>Intel(R) Xeon(R) CPU E5-2630 v2 @ 2.60GHz * 24</td>
+                    <td>{{ sqldata.cpu }}</td>
                 </tr>
 
                 <tr>
                     <th>位置:</th>
-                    <td>酒仙桥/SA-1/1</td>
+                    <td>{{ sqldata.position }}</td>
                     <th>状态:</th>
-                    <td>测试</td>
+                    <td>{{ sqldata.status }}</td>
                 </tr>
 
                 <tr>
                     <th>公司:</th>
-                    <td>拉手网</td>
+                    <td>{{ sqldata.company }}</td>
                     <th>部门:</th>
-                    <td>研发十部</td>
+                    <td>{{ sqldata.department }}</td>
                 </tr>
 
                 <tr>
                     <th>负责人:</th>
-                    <td>马海杰</td>
+                    <td>{{ sqldata.principal }}</td>
                     <th>服务类型:</th>
-                    <td>资产系统测试</td>
+                    <td>{{ sqldata.servicetype }}</td>
                 </tr>
 
                 <tr>
                     <th>保修年限:</th>
-                    <td>3年</td>
+                    <td>{{ sqldata.guarantee }}</td>
                     <th>操作员:</th>
-                    <td>mahaijie</td>
+                    <td>{{ sqldata.user }}</td>
                 </tr>
 
                 <tr>
                     <th>购买日期:</th>
-                    <td>2016-06-23</td>
+                    <td>{{ sqldata.buydate }}</td>
                     <th>更新日期:</th>
-                    <td>2016-06-23 6:00</td>
+                    <td>{{ sqldata.uptime }}</td>
                 </tr>
 
                 <tr>
                     <th>备注:</th>
-                    <td colspan="3">拉手网</td>
+                    <td colspan="3">{{ sqldata.comment }}</td>
 
                 </tr>
 

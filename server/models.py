@@ -30,6 +30,7 @@ class Server(models.Model):
     network = models.TextField('网卡',default='') # json格式存储
 
     ip = models.CharField('ip',max_length=256)
+    manage_ip = models.CharField('管理ip',max_length=256)
     other_ip = models.CharField('其他ip',max_length=256)
     system = models.CharField('系统',max_length=256)
     position = models.CharField('位置',max_length=256) # json格式存储
