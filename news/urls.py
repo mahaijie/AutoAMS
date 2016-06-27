@@ -15,7 +15,7 @@ urlpatterns = patterns('news.views',
                        url(r'^news/article/update/(?P<id>\d+)/$',  'article_update',name='article_update'),
                        url(r'^news/article/del/(?P<id>\d+)/$', 'article_del',name='article_del'),
                        url(r'^news/article/list/', 'article_list',name='article_list'),
-                       url(r'^news/article/show/(?P<id>\d+)/$',  'article_show',name='article_show'),
+                       url(r'^news/article/view/(?P<id>\d+)/$',  'article_view',name='article_view'),
 
                        #url(r'^index','article_list',name='article_list'),
                        )

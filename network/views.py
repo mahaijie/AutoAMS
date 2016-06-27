@@ -165,10 +165,13 @@ def switch_view(request,id):
     sqldata = Switch.objects.get(id=id)
     idcroom = Idcroom.objects.all() # 获取机房列表
 
+    interface_data = SwitchInterface.objects.filter(switch_id=id)
+
     mydict = {"sqldata":sqldata,
               "mynotice":"", # 状态提示条
               'status':Switch.STATUS,
               "idcroom":idcroom,
+              "interface_data":interface_data,
              }
 
     return render(request,'network/switch_view.html',mydict)

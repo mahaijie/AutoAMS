@@ -279,4 +279,4 @@ def article_show(request,id):
               'nav_news_article_list':"true",
               }
 
-    return render(request,'news/article_show.html',mydict)
+    return render(request,'news/article_view.html',mydict)
