@@ -57,7 +57,8 @@ def group_update(request,id):
     # 根据键值和权限列表把列表格式化成字典
     permissions_sqldata = {}
     for value in permissions_list:
-        permissions_sqldata[value] = PERMISSIONS[value]
+        if value in PERMISSIONS:
+            permissions_sqldata[value] = PERMISSIONS[value]
 
     mynotice = "" # 状态提示条
     permissions = ""
