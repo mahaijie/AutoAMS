@@ -176,7 +176,7 @@ PERMISSIONS = {
     "article_update":"文章更新",
     "article_del":"文章删除",
     "article_list":"文章列表",
-    "article_show":"文章查看",
+    "article_view":"文章查看",
 
     # idcroom app
     "idcroom_add":"机房添加",
