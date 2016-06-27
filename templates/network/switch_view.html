@@ -136,7 +136,7 @@
                 <tr>
                     <th colspan="7" style="font-size:20px;background-color: #E9E9EC">
                         接口列表
-                    &nbsp;&nbsp;&nbsp;&nbsp;<a href="/network/switch_interface/getdata/{{ sqldata.id }}"><button type="button" class="btn btn-w-m btn-primary" style="folat:right">一键获取接口信息</button></a>&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="ladda-button btn btn-primary" data-style="expand-right" onClick="getdata({{ sqldata.id }});">一键获取接口信息</button>&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><button type="button" class="btn btn-w-m btn-primary" style="folat:right">批量导入位置信息</button></a>&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;<a href="#">导出Excel模板</a>&nbsp;&nbsp;
                     </th>
@@ -194,18 +194,8 @@
     <!-- Data table -->
     <script src="/static/skin/js/plugins/dataTables/datatables.min.js"></script>
 
-    <!-- iCheck -->
-    <script src="/static/skin/js/plugins/iCheck/icheck.min.js"></script>
 
-    <script>
-    /*iCheck*/
-        $(document).ready(function(){
-            $('.i-checks').iCheck({
-                checkboxClass: 'icheckbox_square-green',
-                radioClass: 'iradio_square-green',
-            });
-        });
-    </script>
+
 
 
     <!-- Page-Level Scripts -->
@@ -340,6 +330,49 @@
         });
 
     </script>
+
+    <!--异步提交-->
+    <script>
+        /*根据url异步获取数据*/
+        function getdata(id){
+                jsonurl = "/network/switch_interface/getdata/"+id+"/?t="+Math.random();
+                $.get(jsonurl,function(data,status){
+                    try  {
+                        var obj = eval('(' + data + ')');
+                    }
+                    catch(exception) {
+                        window.location.href = jsonurl;
+                    }
+
+                    if(obj.error == 0) {
+
+                        swal({
+                            title: "恭喜您，获取成功！",
+                            text: obj.info,
+                            type: "success",
+
+                        },function() {
+                            window.location.reload();
+                        });
+
+                    } else {
+
+                        swal({
+                            title: "很抱歉，获取失败！",
+                            text: obj.info,
+                            type: "error",
+
+                        },function() {
+                            window.location.reload();
+                        });
+
+                    }
+
+              });
+        }
+
+    </script>
+
 
 
 {% endblock %}

@@ -204,9 +204,11 @@ def switch_interface_getdata(request,id):
     # 获取接口列表
     interfaces = commands.getstatusoutput("snmpwalk -v2c -c %s %s %s | awk '{print $4}'"%(snmpcommunity,ip,oid))
     if interfaces[0] != 0:
-        return HttpResponse("snmpwalk命令执行失败,请确认服务器是否安装net-snmp，错误代码：%s"%(interfaces[0]))
+        json_data = json.dumps({"error":1,"info":"snmpwalk命令执行失败,请确认服务器是否安装net-snmp，错误代码：%s"%(interfaces[0])})
+        return HttpResponse(json_data)
     elif "Timeout" in interfaces[1]:
-        return HttpResponse("获取接口信息失败，错误代码：%s"%(interfaces[1]))
+        json_data = json.dumps({"error":1,"info":"获取接口信息超时，请检查设备ip及snmp团体名是否有误并稍后再试，错误代码：%s"%(interfaces[1])})
+        return HttpResponse(json_data)
 
     interfaces = interfaces[1]
     interfaces = interfaces.split('\n')
@@ -221,4 +223,5 @@ def switch_interface_getdata(request,id):
         )
         switch_interface.save()
         n += 1
-    return HttpResponse("成功插入%d个接口信息"%(n))
+    json_data = json.dumps({"error":0,"info":"成功插入%d个接口信息"%(n)})
+    return HttpResponse(json_data)
