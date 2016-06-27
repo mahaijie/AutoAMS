@@ -125,7 +125,7 @@
 
 </div>
 <!-- 引入添加弹窗 -->
-{% include "backup/serverbk_add_dialog.html" %}
+{% include "backup/serverbk_addmore_dialog.html" %}
 {% endblock %}
 
 {% block script %}
@@ -171,37 +171,6 @@
 
     </script>
 
-
-    <script>
-    /*加载按钮.*/
-    $(document).ready(function (){
-
-        // Bind normal buttons
-        $( '.ladda-button' ).ladda( 'bind', { timeout: 2000000 } );
-
-        // Bind progress buttons and simulate loading progress
-        Ladda.bind( '.progress-demo .ladda-button',{
-            callback: function( instance ){
-                var progress = 0;
-                var interval = setInterval( function(){
-                    progress = Math.min( progress + Math.random() * 0.1, 1 );
-                    instance.setProgress( progress );
-
-                    if( progress === 1 ){
-                        instance.stop();
-                        clearInterval( interval );
-                    }
-                }, 2000 );
-            }
-        });
-
-
-
-
-
-    });
-
-</script>
 
     <!-- Page-Level Scripts -->
     <script>
@@ -330,91 +299,58 @@
 
 
         }
-</script>
+    </script>
 
-<!--异步提交-->
-<script>
-        /*根据url异步获取数据*/
-        function addmore(){
-                filepath = document.getElementById("filepath").value;
-                jsonurl = "/backup/serverbk/addmore/?filepath="+filepath+"&t="+Math.random();
-                $.get(jsonurl,function(data,status){
-                    try  {
-                        var obj = eval('(' + data + ')');
-                    }
-                    catch(exception) {
-                        window.location.href = jsonurl;
-                    }
+    <!--异步提交-->
+    <script>
+            /*根据url异步获取数据*/
+            function addmore(){
+                    filepath = document.getElementById("filepath").value;
+                    jsonurl = "/backup/serverbk/addmore/?filepath="+filepath+"&t="+Math.random();
+                    $.get(jsonurl,function(data,status){
+                        try  {
+                            var obj = eval('(' + data + ')');
+                        }
+                        catch(exception) {
+                            window.location.href = jsonurl;
+                        }
 
-                    document.getElementById("add").style.display="none";//隐藏
-                    if(obj.error == 0) {
+                        document.getElementById("add").style.display="none";//隐藏
+                        if(obj.error == 0) {
 
-                        swal({
-                            title: "恭喜您，导入成功！",
-                            text: obj.info,
-                            type: "success",
+                            swal({
+                                title: "恭喜您，导入成功！",
+                                text: obj.info,
+                                type: "success",
 
-                        },function() {
-                            window.location.reload();
-                        });
+                            },function() {
+                                window.location.reload();
+                            });
 
-                    } else {
+                        } else {
 
-                        swal({
-                            title: "很抱歉，导入失败！",
-                            text: obj.info,
-                            type: "error",
+                            swal({
+                                title: "很抱歉，导入失败！",
+                                text: obj.info,
+                                type: "error",
 
-                        },function() {
-                            window.location.reload();
-                        });
+                            },function() {
+                                window.location.reload();
+                            });
 
-                    }
+                        }
 
-              });
-        }
-
-</script>
-
-<script>
-    $(document).ready(function (){
-
-        // Bind normal buttons
-        $( '.ladda-button' ).ladda( 'bind', { timeout: 2000 } );
-
-        // Bind progress buttons and simulate loading progress
-        Ladda.bind( '.progress-demo .ladda-button',{
-            callback: function( instance ){
-                var progress = 0;
-                var interval = setInterval( function(){
-                    progress = Math.min( progress + Math.random() * 0.1, 1 );
-                    instance.setProgress( progress );
-
-                    if( progress === 1 ){
-                        instance.stop();
-                        clearInterval( interval );
-                    }
-                }, 200 );
+                  });
             }
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+            // Bind normal buttons
+            $('.ladda-button').ladda('bind', {timeout: 2000000});
         });
 
-
-        var l = $( '.ladda-button-demo' ).ladda();
-
-        l.click(function(){
-            // Start loading
-            l.ladda( 'start' );
-
-            // Timeout example
-            // Do something in backend and then stop ladda
-            setTimeout(function(){
-                l.ladda('stop');
-            },200)
-
-
-        });
-
-    });
-
-</script>
+    </script>
 {% endblock %}

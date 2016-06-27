@@ -8,7 +8,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from .models import Switch,SwitchInterface
 from django.contrib.auth.decorators import login_required
 from idcroom.models import Idcroom
-import json,commands
+import json,commands,time
 
 
 @login_required
@@ -194,6 +194,7 @@ def switch_del(request,id):
 # 通过交换机snmp获取接口信息，并把获取的接口列表写入数据库
 # snmpwalk -v2c -c public 10.168.1.1 .1.3.6.1.2.1.2.2.1.2 | awk '{print $4}'
 def switch_interface_getdata(request,id):
+    time.sleep(2)
     id = int(id)
     # 通过交换机id取得snmp团体名、IP
     sqldata = Switch.objects.get(id=id)

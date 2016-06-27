@@ -122,7 +122,7 @@
 
 </div>
 <!-- 引入添加弹窗 -->
-{% include "backup/diskbk_add_dialog.html" %}
+{% include "backup/diskbk_addmore_dialog.html" %}
 {% endblock %}
 {% block script %}
 
@@ -167,37 +167,6 @@
 
     </script>
 
-
-    <script>
-    /*加载按钮.*/
-    $(document).ready(function (){
-
-        // Bind normal buttons
-        $( '.ladda-button' ).ladda( 'bind', { timeout: 2000000 } );
-
-        // Bind progress buttons and simulate loading progress
-        Ladda.bind( '.progress-demo .ladda-button',{
-            callback: function( instance ){
-                var progress = 0;
-                var interval = setInterval( function(){
-                    progress = Math.min( progress + Math.random() * 0.1, 1 );
-                    instance.setProgress( progress );
-
-                    if( progress === 1 ){
-                        instance.stop();
-                        clearInterval( interval );
-                    }
-                }, 2000 );
-            }
-        });
-
-
-
-
-
-    });
-
-</script>
 
     <!-- Page-Level Scripts -->
     <script>
@@ -378,39 +347,7 @@
     $(document).ready(function (){
 
         // Bind normal buttons
-        $( '.ladda-button' ).ladda( 'bind', { timeout: 2000 } );
-
-        // Bind progress buttons and simulate loading progress
-        Ladda.bind( '.progress-demo .ladda-button',{
-            callback: function( instance ){
-                var progress = 0;
-                var interval = setInterval( function(){
-                    progress = Math.min( progress + Math.random() * 0.1, 1 );
-                    instance.setProgress( progress );
-
-                    if( progress === 1 ){
-                        instance.stop();
-                        clearInterval( interval );
-                    }
-                }, 200 );
-            }
-        });
-
-
-        var l = $( '.ladda-button-demo' ).ladda();
-
-        l.click(function(){
-            // Start loading
-            l.ladda( 'start' );
-
-            // Timeout example
-            // Do something in backend and then stop ladda
-            setTimeout(function(){
-                l.ladda('stop');
-            },200)
-
-
-        });
+        $( '.ladda-button' ).ladda( 'bind', { timeout: 200000 } );
 
     });
 

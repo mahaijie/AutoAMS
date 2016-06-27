@@ -18,8 +18,8 @@
     <!-- Data Table -->
     <link href="/static/skin/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
 
-    <!-- iCheck -->
-    <link href="/static/skin/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <!-- Ladda style -->
+    <link href="/static/skin/css/plugins/ladda/ladda-themeless.min.css" rel="stylesheet">
 
 {% endblock %}
 {% block content %}
@@ -136,7 +136,7 @@
                 <tr>
                     <th colspan="7" style="font-size:20px;background-color: #E9E9EC">
                         接口列表
-                    &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="ladda-button btn btn-primary" data-style="expand-right" onClick="getdata({{ sqldata.id }});">一键获取接口信息</button>&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;<button class="ladda-button btn btn-primary" data-style="expand-right" onClick="getdata({{ sqldata.id }});">一键获取接口信息</button>&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><button type="button" class="btn btn-w-m btn-primary" style="folat:right">批量导入位置信息</button></a>&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;<a href="#">导出Excel模板</a>&nbsp;&nbsp;
                     </th>
@@ -194,9 +194,24 @@
     <!-- Data table -->
     <script src="/static/skin/js/plugins/dataTables/datatables.min.js"></script>
 
+    <!-- Ladda -->
+    <script src="/static/skin/js/plugins/ladda/spin.min.js"></script>
+    <script src="/static/skin/js/plugins/ladda/ladda.min.js"></script>
+    <script src="/static/skin/js/plugins/ladda/ladda.jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function (){
+
+            // Bind normal buttons
+            $( '.ladda-button' ).ladda( 'bind', { timeout: 2000000 } );
 
 
 
+
+
+        });
+
+    </script>
 
     <!-- Page-Level Scripts -->
     <script>
