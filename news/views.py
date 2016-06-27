@@ -262,7 +262,7 @@ def article_list(request):
 
 @login_required
 @commons.permission_validate
-def article_show(request,id):
+def article_view(request,id):
     sqldata = Article.objects.get(id=id)
     columns = Column.objects.all() # 获取分类列表
 
