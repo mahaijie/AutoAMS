@@ -182,11 +182,13 @@ def switch_view(request,id):
 def switch_del(request,id):
     id = int(id)
     data = Switch.objects.get(id=id)
+    interface = SwitchInterface.objects.filter(switch_id=id)
     # 如果数据被其他字段引用，则不删除，弹出提示
     #json_data = json.dumps({'status':False,'info':'此数据有正在被其他字段引用！'})
     #return HttpResponse(json_data)
 
-    data.delete()
+    data.delete() # 删除交换机
+    interface.delete() #删除交换机关联的接口
     json_data = json.dumps({'status':True,'info':''})
 
     return HttpResponse(json_data)
