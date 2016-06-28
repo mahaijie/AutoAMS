@@ -202,7 +202,7 @@ def switch_interface_getdata(request,id):
     snmpcommunity = sqldata.snmpcommunity
     ip = sqldata.ip
     oid = ".1.3.6.1.2.1.2.2.1.2"
-    command = 'snmpwalk -v2c -c %s %s %s | awk "{print $4}"'%(snmpcommunity,ip,oid)
+    command = "snmpwalk -v2c -c %s %s %s | awk '{print $4}'"%(snmpcommunity,ip,oid)
 
     # 获取接口列表
     interfaces = commands.getstatusoutput(command)
@@ -217,12 +217,9 @@ def switch_interface_getdata(request,id):
     interfaces = interfaces.split('\n')
 
     # 把该服务器中数据库已存在的接口存入列表
-    i = 0
     interface_sqllist = []
     for data in interface_data:
-        interface_sqllist[i] = data.name
-        i += 1
-
+        interface_sqllist.append(data.name)
 
     # 遍历接口列表，写入数据库；判断获取的接口是否已存在，存在则忽略，不存在则添加
     n = 0
