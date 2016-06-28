@@ -194,16 +194,18 @@ def switch_del(request,id):
 # 通过交换机snmp获取接口信息，并把获取的接口列表写入数据库
 # snmpwalk -v2c -c public 10.168.1.1 .1.3.6.1.2.1.2.2.1.2 | awk '{print $4}'
 def switch_interface_getdata(request,id):
-    time.sleep(2)
     id = int(id)
+    # 获取该交换机接口列表
+    interface_data = SwitchInterface.objects.filter(switch_id=id)
     # 通过交换机id取得snmp团体名、IP
     sqldata = Switch.objects.get(id=id)
     snmpcommunity = sqldata.snmpcommunity
     ip = sqldata.ip
     oid = ".1.3.6.1.2.1.2.2.1.2"
+    command = 'snmpwalk -v2c -c %s %s %s | awk "{print $4}"'%(snmpcommunity,ip,oid)
 
     # 获取接口列表
-    interfaces = commands.getstatusoutput("snmpwalk -v2c -c %s %s %s | awk '{print $4}'"%(snmpcommunity,ip,oid))
+    interfaces = commands.getstatusoutput(command)
     if interfaces[0] != 0:
         json_data = json.dumps({"error":1,"info":"snmpwalk命令执行失败,请确认服务器是否安装net-snmp，错误代码：%s"%(interfaces[0])})
         return HttpResponse(json_data)
@@ -214,15 +216,25 @@ def switch_interface_getdata(request,id):
     interfaces = interfaces[1]
     interfaces = interfaces.split('\n')
 
-    # 遍历接口列表，写入数据库
+    # 把该服务器中数据库已存在的接口存入列表
+    i = 0
+    interface_sqllist = []
+    for data in interface_data:
+        interface_sqllist[i] = data.name
+        i += 1
 
+
+    # 遍历接口列表，写入数据库；判断获取的接口是否已存在，存在则忽略，不存在则添加
     n = 0
     for name in interfaces:
-        switch_interface = SwitchInterface(
-            name = name,
-            switch_id = id,
-        )
-        switch_interface.save()
-        n += 1
+        if name in interface_sqllist:
+            pass
+        else:
+            switch_interface = SwitchInterface(
+                name = name,
+                switch_id = id,
+            )
+            switch_interface.save()
+            n += 1
     json_data = json.dumps({"error":0,"info":"成功插入%d个接口信息"%(n)})
     return HttpResponse(json_data)
