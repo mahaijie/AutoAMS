@@ -72,7 +72,7 @@
                             <td>{{ data.model }}</td>
                             <td>{{ data.department }}</td>
                             <td>{{ data.principal }}</td>
-                            <td>{{ data.position }}</td>
+                            <td>{% load mytags %} {{ idcroom_dict|key:data.idcroom_id }}/{{ data.cabinet }}/{{ data.position }}</td>
                             <td>{% load mytags %} {{ status|key:data.status }}</td>
                             <td>{{ data.uptime }}</td>
 

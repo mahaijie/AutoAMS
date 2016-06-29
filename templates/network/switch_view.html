@@ -64,63 +64,62 @@
                 <tbody>
                 <tr>
                     <th width="100">序列号:</th>
-                    <td>SANNA2A</td>
+                    <td>{{ sqldata.sn }}</td>
                     <th width="100">品牌型号:</th>
-                    <td>Cisco 6509</td>
+                    <td>{{ sqldata.brand }}</td>
                 </tr>
 
                 <tr>
                     <th>管理IP:</th>
-                    <td>192.168.1.100</td>
+                    <td>{{ sqldata.ip }}</td>
                     <th>其他IP:</th>
-                    <td>172.16.1.100</td>
+                    <td>{{ sqldata.other_ip }}</td>
                 </tr>
 
                 <tr>
                     <th>机房:</th>
-                    <td>酒仙桥</td>
+                    <td>{% load mytags %} {{ idcroom_dict|key:sqldata.idcroom_id }}</td>
                     <th>机柜:</th>
-                    <td>S1-1</td>
+                    <td>{{ sqldata.cabinet }}-{{ sqldata.position }}</td>
                 </tr>
 
                 <tr>
                     <th>SNMP团体名:</th>
-                    <td>public</td>
+                    <td>{{ sqldata.snmpcommunity }}</td>
                     <th>状态:</th>
-                    <td>测试</td>
+                    <td>{{ sqldata.status }}</td>
                 </tr>
 
                 <tr>
                     <th>公司:</th>
-                    <td>拉手网</td>
+                    <td>{{ sqldata.company }}</td>
                     <th>部门:</th>
-                    <td>研发十部</td>
+                    <td>{{ sqldata.department }}</td>
                 </tr>
 
                 <tr>
                     <th>负责人:</th>
-                    <td>马海杰</td>
-                    <th>服务类型:</th>
-                    <td>资产系统测试</td>
-                </tr>
-
-                <tr>
+                    <td>{{ sqldata.principal }}</td>
                     <th>保修年限:</th>
-                    <td>3年</td>
+                    <td>{{ sqldata.guarantee }}</td>
+                </tr>
+
+                <tr>
                     <th>操作员:</th>
-                    <td>mahaijie</td>
-                </tr>
-
-                <tr>
+                    <td>{{ sqldata.user }}</td>
                     <th>购买日期:</th>
-                    <td>2016-06-23</td>
-                    <th>更新日期:</th>
-                    <td>2016-06-23 6:00</td>
+                    <td>{{ sqldata.buydate }}</td>
                 </tr>
 
                 <tr>
+                    <th>更新日期:</th>
+                    <td>{{ sqldata.uptime }}</td>
                     <th>备注:</th>
-                    <td colspan="3">拉手网</td>
+                    <td>{{ sqldata.comment }}</td>
+                </tr>
+
+                <tr>
+
 
                 </tr>
 

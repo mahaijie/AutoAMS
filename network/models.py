@@ -29,10 +29,11 @@ class Switch(models.Model):
     # 手动添加部分
     ip = models.CharField('ip',max_length=256)
     other_ip = models.CharField('其他ip',max_length=256)
-    position = models.CharField('位置',max_length=256) # 机柜
     user = models.CharField('操作员',max_length=256)
     status = models.CharField('状态',max_length=10,default='product') # 状态,默认生产
     idcroom = models.ForeignKey(Idcroom,verbose_name='所在机房')
+    cabinet = models.CharField('机柜',max_length=256)
+    position = models.CharField('机位',max_length=256)
     snmpcommunity = models.CharField('snmp团体名',max_length=256)
 
     company = models.CharField('公司',max_length=256)

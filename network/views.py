@@ -34,6 +34,7 @@ def switch_add(request):
         department = request.POST.get('department', '')
         principal = request.POST.get('principal', '')
         idcroom_id = request.POST.get('idcroom_id', '')
+        cabinet = request.POST.get('cabinet', '')
         position = request.POST.get('position', '')
         guarantee = request.POST.get('guarantee', '')
         buydate = request.POST.get('buydate', '')
@@ -62,6 +63,7 @@ def switch_add(request):
             department = department,
             principal = principal,
             idcroom_id = idcroom_id,
+            cabinet = cabinet,
             position = position,
             guarantee = guarantee,
             buydate = buydate,
@@ -103,6 +105,7 @@ def switch_update(request,id):
         department = request.POST.get('department', '')
         principal = request.POST.get('principal', '')
         idcroom_id = request.POST.get('idcroom_id', '')
+        cabinet = request.POST.get('cabinet', '')
         position = request.POST.get('position', '')
         guarantee = request.POST.get('guarantee', '')
         buydate = request.POST.get('buydate', '')
@@ -130,6 +133,7 @@ def switch_update(request,id):
         switch.department = department
         switch.principal = principal
         switch.idcroom_id = idcroom_id
+        switch.cabinet = cabinet
         switch.position = position
         switch.guarantee = guarantee
         switch.buydate = buydate
@@ -147,11 +151,17 @@ def switch_update(request,id):
 @commons.permission_validate
 def switch_list(request):
     sqldata = Switch.objects.all()
+    idcroom = Idcroom.objects.all() # 获取机房列表
+
+    idcroom_dict = {}
+    for idc in idcroom:
+        idcroom_dict[idc.id] = idc.name
 
     mydict = {'sqldata':sqldata,
               'mynotice':'',
               'nav_switch_list':"true",
               'status':Switch.STATUS,
+              "idcroom_dict":idcroom_dict,
               'nav_network_switch_list':"true",
              }
     mydict['mynotice'] = commons.mynotice(request)
@@ -165,12 +175,16 @@ def switch_view(request,id):
     sqldata = Switch.objects.get(id=id)
     idcroom = Idcroom.objects.all() # 获取机房列表
 
+    idcroom_dict = {}
+    for idc in idcroom:
+        idcroom_dict[idc.id] = idc.name
+
     interface_data = SwitchInterface.objects.filter(switch_id=id)
 
     mydict = {"sqldata":sqldata,
               "mynotice":"", # 状态提示条
               'status':Switch.STATUS,
-              "idcroom":idcroom,
+              "idcroom_dict":idcroom_dict,
               "interface_data":interface_data,
              }
 

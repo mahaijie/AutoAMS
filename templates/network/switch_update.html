@@ -158,7 +158,16 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">机柜位置</label>
+                            <label class="col-sm-2 control-label">机柜</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="cabinet" class="form-control" value="{{ sqldata.cabinet }}">
+                            </div>
+                            <label class="col-sm-0 control-label" style="color:red">*</label>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">机位</label>
                             <div class="col-sm-6">
                                 <input type="text" name="position" class="form-control" value="{{ sqldata.position }}">
                             </div>
@@ -169,7 +178,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">保修年限</label>
                             <div class="col-sm-6">
-                                <input type="text" name="guarantee" class="form-control" value="{{ sqldata.principal }}">
+                                <input type="text" name="guarantee" class="form-control" value="{{ sqldata.guarantee }}">
                             </div>
                             <label class="col-sm-0 control-label" style="color:red">*</label>
                         </div>
