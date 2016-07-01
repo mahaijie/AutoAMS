@@ -10,8 +10,8 @@ from DjangoUeditor.models import UEditorField
 from django.core.urlresolvers import reverse
 
 class Column(models.Model):
-    name = models.CharField('栏目名称',max_length=256)
-    slug = models.CharField('栏目网址',max_length=256,db_index=True)
+    name = models.CharField('栏目名称',default='',max_length=256)
+    slug = models.CharField('栏目网址',default='',max_length=256,db_index=True)
     intro = models.TextField('栏目简介',default='')
 
     nav_display = models.BooleanField('导航显示', default=False)
@@ -19,11 +19,11 @@ class Column(models.Model):
 
 class Article(models.Model):
 
-    title = models.CharField('标题',max_length=256)
-    slug = models.CharField('网址',max_length=256,db_index=True)
+    title = models.CharField('标题',default='',max_length=256)
+    slug = models.CharField('网址',default='',max_length=256,db_index=True)
     #column = models.ManyToManyField(Column,verbose_name='归属栏目') # 多对多，一篇文章多个分类
-    column = models.ForeignKey(Column,verbose_name='分类')
-    author = models.CharField('作者',max_length=256)
+    column = models.ForeignKey(Column,default=0,verbose_name='分类')
+    author = models.CharField('作者',default='',max_length=256)
     content = models.TextField('内容',default='',blank=True)
     count = models.IntegerField('统计',default=0)
     pub_date = models.DateTimeField('发布时间',auto_now_add=True, editable=True)
