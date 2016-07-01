@@ -9,6 +9,6 @@ else:
 
 from .views import get_ueditor_controller
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^controller/$', get_ueditor_controller)
-)
+]
