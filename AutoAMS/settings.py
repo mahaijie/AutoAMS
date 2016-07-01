@@ -48,8 +48,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'news',
+    'django_extensions',
     'DjangoUeditor',
+    'news',
     'myauth',
     'common',
     'idcroom',
