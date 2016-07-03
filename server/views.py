@@ -7,6 +7,7 @@ from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from .models import Server
 from django.contrib.auth.decorators import login_required
+from scripts import hello
 
 @login_required
 @commons.permission_validate
@@ -112,3 +113,9 @@ def server_view(request,id):
              }
 
     return render(request,'server/server_view.html',mydict)
+
+# 一键更新
+def server_onekey(request):
+    a = hello.run()
+
+    return HttpResponse(a)

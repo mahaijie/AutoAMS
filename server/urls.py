@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^server/update/(?P<id>\d+)/$', server_update),
     url(r'^server/updatemore/', server_updatemore),
     url(r'^server/view/(?P<id>\d+)/$', server_view),
+    url(r'^server/onekey/$', server_onekey),
 ]
