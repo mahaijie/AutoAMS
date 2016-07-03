@@ -12,7 +12,7 @@ import time
 def getData(ip):
     try:
         #print "ip %s start run%s" % (ip,datetime.datetime.now())
-        time.sleep(1)
+        time.sleep(3)
         #print "ip %s stop run%s" % (ip,datetime.datetime.now())
     except Exception, e:
         print '%s\t run fail,fail reason\r\n%s' % (ip,e)
@@ -126,7 +126,7 @@ def run():
 
     threads = []
 
-    print "pro start %s" % datetime.datetime.now()
+    starttime = "pro start %s" % datetime.datetime.now()
 
     for ip in iplist:
         th = threading.Thread(target=getData, args=(ip,))
@@ -136,5 +136,7 @@ def run():
     for th in threads:
         th.join()
 
-    print "pro end %s" % datetime.datetime.now()
+    endtime = "pro end %s" % datetime.datetime.now()
+    print starttime,endtime
+    return  starttime+"<br>"+endtime
 
