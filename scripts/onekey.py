@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Author:马海杰
 # Email:mahaijie123@163.com
-# 执行方法：python manage.py runscript hello
+# 执行方法：python manage.py runscript onekey
 # 需要安装django-extensions，pip install django-extensions
 
 import datetime
@@ -11,10 +11,9 @@ import time
 
 def getData(ip):
     try:
-        print "ip %s start run%s" % (ip,datetime.datetime.now())
-
+        #print "ip %s start run%s" % (ip,datetime.datetime.now())
         time.sleep(1)
-        print "ip %s stop run%s" % (ip,datetime.datetime.now())
+        #print "ip %s stop run%s" % (ip,datetime.datetime.now())
     except Exception, e:
         print '%s\t run fail,fail reason\r\n%s' % (ip,e)
 
