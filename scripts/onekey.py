@@ -159,15 +159,14 @@ def get_server_info(ip,user,passwd):
 
 
 def run():
-    iplist = ['192.168.216.102',
-              '192.168.216.102',
-              '192.168.216.102',
-              '192.168.216.102',
-              '192.168.216.102',
-              '192.168.216.102',
-              '192.168.216.102',
-              '192.168.216.102',
-              '192.168.216.102',
+    iplist = [
+                ['192.168.216.102','root',''],
+                ['192.168.216.102','root',''],
+                ['192.168.216.102','root',''],
+                ['192.168.216.102','root',''],
+                ['192.168.216.102','root',''],
+                ['192.168.216.102','root',''],
+                ['192.168.216.102','root',''],
              ]
 
     threads = []
@@ -175,7 +174,7 @@ def run():
     starttime = "pro start %s" % datetime.datetime.now()
 
     for ip in iplist:
-        th = threading.Thread(target=get_server_info, args=(ip,'root',''))
+        th = threading.Thread(target=get_server_info, args=(ip[0],ip[1],ip[2]))
         th.start()
         threads.append(th)
 
