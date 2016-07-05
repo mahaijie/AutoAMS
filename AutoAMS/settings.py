@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'django_extensions',
+    'django_extensions', # 扩展manage.py执行命令
     'DjangoUeditor',
     'news',
     'myauth',
@@ -97,10 +97,20 @@ WSGI_APPLICATION = 'AutoAMS.wsgi.application'
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'default2': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    },
+
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'autoams',
+        'USER':'root',
+        'PASSWORD':'123456',
+        'HOST':'127.0.0.1',
+        'PORT':'3306',
     }
+
 }
 
 

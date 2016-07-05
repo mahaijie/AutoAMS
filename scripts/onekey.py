@@ -4,6 +4,7 @@
 # 执行方法：python manage.py runscript onekey
 # 需要安装django-extensions，pip install django-extensions
 
+
 import datetime
 import os
 import threading
@@ -160,14 +161,10 @@ def get_server_info(ip,user,passwd):
 
 def run():
     iplist = [
-                ['192.168.216.102','root',''],
-                ['192.168.216.102','root',''],
-                ['192.168.216.102','root',''],
-                ['192.168.216.102','root',''],
-                ['192.168.216.102','root',''],
-                ['192.168.216.102','root',''],
-                ['192.168.216.102','root',''],
-             ]
+        ['192.168.1.101','root',''],
+
+
+       ]
 
     threads = []
 

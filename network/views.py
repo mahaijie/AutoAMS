@@ -43,7 +43,7 @@ def switch_add(request):
         comment = request.POST.get('comment', '')
 
 
-        if sn == '' or ip == '' or snmpcommunity == '':
+        if sn == '' or ip == '' or snmpcommunity == '' or idcroom_id:
             mydict['mynotice'] = commons.mynotice(request,"add","error","添加失败，带星号（*）表单不能为空！")
             return render(request,'network/switch_add.html',mydict)
 
@@ -114,7 +114,7 @@ def switch_update(request,id):
         comment = request.POST.get('comment', '')
 
 
-        if sn == '' or ip == '' or snmpcommunity == '':
+        if sn == '' or ip == '' or snmpcommunity == '' or idcroom_id:
             mydict['mynotice'] = commons.mynotice(request,"update","error","更新失败，带星号（*）表单不能为空！")
             return render(request,'network/switch_update.html',mydict)
 

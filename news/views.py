@@ -157,7 +157,7 @@ def article_add(request):
         content = request.POST.get('content', '')
         published = request.POST.get('published', '')
 
-        if title == '' or content == '':
+        if title == '' or content == ''or column_id == '':
             mydict['mynotice'] = commons.mynotice(request,"add","error","添加失败，带星号（*）表单不能为空！")
             return render(request,'news/article_add.html',mydict)
 

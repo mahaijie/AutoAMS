@@ -36,7 +36,7 @@ def serverbk_add(request):
         buydate = request.POST.get('buydate', '')
 
 
-        if sn == '' or brand == '' or model == '' or cpu == '' or memory == '' or disk == '' or guarantee == '' or buydate == '':
+        if sn == '' or brand == '' or model == '' or cpu == '' or memory == '' or disk == '' or guarantee == '' or buydate == '' or idcroom_id:
             mydict['mynotice'] = commons.mynotice(request,"add","error","添加失败，带星号（*）表单不能为空！")
             return render(request,'backup/serverbk_add.html',mydict)
 
@@ -93,7 +93,7 @@ def serverbk_update(request,id):
         buydate = request.POST.get('buydate', '')
 
 
-        if sn == '' or brand == '' or model == '' or cpu == '' or memory == '' or disk == '' or guarantee == '' or buydate == '':
+        if sn == '' or brand == '' or model == '' or cpu == '' or memory == '' or disk == '' or guarantee == '' or buydate == '' or idcroom_id:
             mydict['mynotice'] = commons.mynotice(request,"update","error","更新失败，带星号（*）表单不能为空！")
             return render(request,'backup/serverbk_update.html',mydict)
 
@@ -291,7 +291,7 @@ def diskbk_add(request):
         buydate = request.POST.get('buydate', '')
 
 
-        if sn == '' or brand == '' or type == '' or capacity == '' or guarantee == '' or buydate == '':
+        if sn == '' or brand == '' or type == '' or capacity == '' or guarantee == '' or buydate == '' or idcroom_id:
             mydict['mynotice'] = commons.mynotice(request,"add","error","添加失败，带星号（*）表单不能为空！")
             return render(request,'backup/diskbk_add.html',mydict)
 
@@ -352,7 +352,7 @@ def diskbk_update(request,id):
         buydate = request.POST.get('buydate', '')
 
 
-        if sn == '' or brand == '' or type == '' or capacity == '' or guarantee == '' or buydate == '':
+        if sn == '' or brand == '' or type == '' or capacity == '' or guarantee == '' or buydate == '' or idcroom_id:
             mydict['mynotice'] = commons.mynotice(request,"update","error","更新失败，带星号（*）表单不能为空！")
             return render(request,'backup/diskbk_update.html',mydict)
 
@@ -551,7 +551,7 @@ def memorybk_add(request):
         buydate = request.POST.get('buydate', '')
 
 
-        if sn == '' or brand == '' or type == '' or capacity == '' or guarantee == '' or buydate == '':
+        if sn == '' or brand == '' or type == '' or capacity == '' or guarantee == '' or buydate == '' or idcroom_id:
             mydict['mynotice'] = commons.mynotice(request,"add","error","添加失败，带星号（*）表单不能为空！")
             return render(request,'backup/memorybk_add.html',mydict)
 
@@ -614,7 +614,7 @@ def memorybk_update(request,id):
         buydate = request.POST.get('buydate', '')
 
 
-        if sn == '' or brand == '' or type == '' or capacity == '' or guarantee == '' or buydate == '':
+        if sn == '' or brand == '' or type == '' or capacity == '' or guarantee == '' or buydate == '' or idcroom_id:
             mydict['mynotice'] = commons.mynotice(request,"update","error","更新失败，带星号（*）表单不能为空！")
             return render(request,'backup/memorybk_update.html',mydict)
 

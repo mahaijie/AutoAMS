@@ -8,8 +8,8 @@ from django.db import models
 
 
 class Idcroom(models.Model):
-    name = models.CharField('机房名称',default='',max_length=256)
-    user = models.CharField('操作员',default='',max_length=256)
+    name = models.CharField('机房名称',default='',max_length=255)
+    user = models.CharField('操作员',default='',max_length=255)
     comment = models.TextField('备注',default='')
 
 

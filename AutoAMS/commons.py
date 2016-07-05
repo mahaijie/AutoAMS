@@ -49,15 +49,20 @@ def str_to_list(str):
 # 装饰器函数（验证当前用户是否拥有view中的函数权限）
 def permission_validate(func):
     def wrapper(request,*args, **kwargs):
-
         func_name = func.__name__ # 获取view中被装饰的函数名
         username = request.user.username
+
+        # admin拥有所有权限
+        if(username == 'admin'):
+            return func(request,*args, **kwargs)
+
         user = User.objects.get(username = username)
         group = Group.objects.get(id = user.group_id)
         permissions = group.permissions
 
         permissions_list = str_to_list(permissions)
-        if(func_name in permissions_list):
+        # admin拥有所有权限
+        if(func_name in permissions_list or username == 'admin'):
             return func(request,*args, **kwargs)
         else:
             return render(request,'common/NoAccess.html',{"info":PERMISSIONS[func_name]})

@@ -249,6 +249,7 @@ def user_list(request):
     sqldata = User.objects.all()
     groups = Group.objects.all() # 获取分组列表
 
+
     groups_dict = {}
     for group in groups:
         groups_dict[group.id] = group.name
