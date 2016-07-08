@@ -6,6 +6,7 @@ from django.shortcuts import render
 from myauth.models import User,Group
 from AutoAMS.settings import PERMISSIONS
 import json,time,os,random
+import commands
 
 # status: 控制右上角提示框颜色，success添加成功(绿色)，warning为添加失败(橘黄色)，error红色
 # 通过Session记录是否更新、添加成功
@@ -45,6 +46,14 @@ def str_to_list(str):
         return str.split(',')
     else:
         return ""
+
+# fping
+def myping(ip):
+    result = commands.getstatusoutput("fping -r 2 -t 200 %s"%(ip))
+    if(result[0] == 0):
+        return True
+    else:
+        return False
 
 # 装饰器函数（验证当前用户是否拥有view中的函数权限）
 def permission_validate(func):

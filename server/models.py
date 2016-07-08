@@ -32,13 +32,13 @@ class Server(models.Model):
 
     ip = models.CharField('ip',default='',max_length=255)
     manage_ip = models.CharField('管理ip',default='',max_length=255)
-    all_ip = models.CharField('全部ip',default='',max_length=255)
+    all_ip = models.TextField('全部ip',default='')
     system = models.CharField('系统',default='',max_length=255)
     hostname = models.CharField('HOSTNAME',default='',max_length=255)
     idcroom = models.ForeignKey(Idcroom,default='',verbose_name='所在机房')
     position = models.CharField('位置',default='',max_length=255) # json格式存储
     user = models.CharField('操作员',default='',max_length=255)
-    status = models.CharField('状态',max_length=10,default='product') # 服务器状态,默认生产
+    status = models.CharField('状态',max_length=255,default='product') # 服务器状态,默认生产
 
     # 手动添加部分
     company = models.CharField('公司',default='',max_length=255)

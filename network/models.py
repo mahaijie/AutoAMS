@@ -30,7 +30,7 @@ class Switch(models.Model):
     ip = models.CharField('ip',default='',max_length=255)
     other_ip = models.CharField('其他ip',default='',max_length=255)
     user = models.CharField('操作员',default='',max_length=255)
-    status = models.CharField('状态',max_length=10,default='product') # 状态,默认生产
+    status = models.CharField('状态',max_length=255,default='product') # 状态,默认生产
     idcroom = models.ForeignKey(Idcroom,default='',verbose_name='所在机房')
     cabinet = models.CharField('机柜',default='',max_length=255)
     position = models.CharField('机位',default='',max_length=255)

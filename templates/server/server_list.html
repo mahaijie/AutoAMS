@@ -47,7 +47,7 @@
             <div class="ibox-title">
                 <h5>服务器列表</h5>
                 <div class="ibox-tools">
-                    <a href="#"><button type="button" class="btn btn-w-m btn-primary">一键更新</button></a>&nbsp;&nbsp;
+                    <a href="/server/onekey"><button type="button" class="btn btn-w-m btn-primary">一键更新</button></a>&nbsp;&nbsp;
                 </div>
             </div>
             <div class="ibox-content">
@@ -57,8 +57,7 @@
                         <th>选择</th>
                         <th>序列号</th>
                         <th>IP</th>
-                        <th>品牌</th>
-                        <th>型号</th>
+                        <th>品牌型号</th>
                         <th>服务类型</th>
                         <th>所属部门</th>
                         <th>负责人</th>
@@ -76,13 +75,12 @@
                             <td><input type="checkbox" class="i-checks" name="serverlist" value="{{ data.id }}"></td>
                             <td>{{ data.sn }}</td>
                             <td>{{ data.ip }}</td>
-                            <td>{{ data.brand }}</td>
-                            <td>{{ data.model }}</td>
+                            <td>{{ data.brand }} {{ data.model }}</td>
                             <td>{{ data.servicetype }}</td>
                             <td>{{ data.department }}</td>
                             <td>{{ data.principal }}</td>
                             <td>{{ data.system }}</td>
-                            <td>{{ data.memory }}</td>
+                            <td>{% load mytags %} {{ data.memory|first|MB_to_GB }}G</td>
                             <td>{{ data.position }}</td>
                             <td>{% load mytags %} {{ status|key:data.status }}</td>
                             <td>{{ data.uptime }}</td>
@@ -104,8 +102,7 @@
                             <th>选择</th>
                             <th>序列号</th>
                             <th>IP</th>
-                            <th>品牌</th>
-                            <th>型号</th>
+                            <th>品牌型号</th>
                             <th>服务类型</th>
                             <th>所属部门</th>
                             <th>负责人</th>

@@ -29,9 +29,9 @@ $(document).ready(function () {
                                 window.location.reload();
                             } else if(obj.status == false) {
                                 swal({
-                                    title:"操作提示!",
+                                    title:"操作失败!",
                                     text:"删除失败！"+obj.info,
-                                    type:"warning"
+                                    type:"error"
                                     }, function () {
                                         window.location.reload();
                                     });

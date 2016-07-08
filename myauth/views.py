@@ -235,8 +235,9 @@ def user_del(request,id):
     id = int(id)
     data = User.objects.get(id=id)
     # 如果数据被其他字段引用，则不删除，弹出提示
-    #json_data = json.dumps({'status':False,'info':'此数据有正在被其他字段引用！'})
-    #return HttpResponse(json_data)
+    if data.username == 'admin':
+        json_data = json.dumps({'status':False,'info':'admin用户禁止删除！'})
+        return HttpResponse(json_data)
 
     data.delete()
     json_data = json.dumps({'status':True,'info':''})

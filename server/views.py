@@ -8,6 +8,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from .models import Server
 from django.contrib.auth.decorators import login_required
 from scripts import onekey
+import json
 
 @login_required
 @commons.permission_validate
@@ -93,6 +94,10 @@ def server_updatemore(request):
 def server_list(request):
     sqldata = Server.objects.all()
 
+    # 把内存字段json格式转换为列表
+    for data in sqldata:
+        data.memory = json.loads(data.memory)
+
     mydict = {'sqldata':sqldata,
               'mynotice':'',
               'nav_server_list':"true",
@@ -118,4 +123,5 @@ def server_view(request,id):
 def server_onekey(request):
     a = onekey.run()
 
-    return HttpResponse(a)
+    #return HttpResponse(a)
+    return HttpResponseRedirect("/server/list/")
