@@ -48,44 +48,61 @@
                 <h5>服务器列表</h5>
                 <div class="ibox-tools">
                     <a href="/server/onekey"><button type="button" class="btn btn-w-m btn-primary">一键更新</button></a>&nbsp;&nbsp;
+
                 </div>
             </div>
             <div class="ibox-content">
-                <table class="table table-striped table-bordered table-hover dataTables-config">
+                <p>
+                    <button type="button" id="tdbtn0" onclick="hide_table_column(0)" class="btn btn-info">选择</button>&nbsp;&nbsp;
+                    <button type="button" id="tdbtn1" onclick="hide_table_column(1)" class="btn btn-info">序列号</button>&nbsp;&nbsp;
+                    <button type="button" id="tdbtn2" onclick="hide_table_column(2)" class="btn btn-info">IP</button>&nbsp;&nbsp;
+                    <button type="button" id="tdbtn3" onclick="hide_table_column(3)" class="btn btn-info">品牌型号</button>&nbsp;&nbsp;
+                    <button type="button" id="tdbtn4" onclick="hide_table_column(4)" class="btn btn-info">服务类型</button>&nbsp;&nbsp;
+                    <button type="button" id="tdbtn5" onclick="hide_table_column(5)" class="btn btn-info">所属部门</button>&nbsp;&nbsp;
+                    <button type="button" id="tdbtn6" onclick="hide_table_column(6)" class="btn btn-info">负责人</button>&nbsp;&nbsp;
+                    <button type="button" id="tdbtn7" onclick="hide_table_column(7)" class="btn btn-info">操作系统</button>&nbsp;&nbsp;
+                    <button type="button" id="tdbtn8" onclick="hide_table_column(8)" class="btn btn-info">内存</button>&nbsp;&nbsp;
+                    <button type="button" id="tdbtn9" onclick="hide_table_column(9)" class="btn btn-info">位置</button>&nbsp;&nbsp;
+                    <button type="button" id="tdbtn10" onclick="hide_table_column(10)" class="btn btn-info">状态</button>&nbsp;&nbsp;
+                    <button type="button" id="tdbtn11" onclick="hide_table_column(11)" class="btn btn-info">最近更新</button>&nbsp;&nbsp;
+                    <button type="button" id="tdbtn12" onclick="hide_table_column(12)" class="btn btn-info">操作</button>&nbsp;&nbsp;
+                </p>
+
+                <table class="table table-striped table-bordered table-hover dataTables-config" id="show_hide">
                     <thead>
                     <tr>
-                        <th>选择</th>
-                        <th>序列号</th>
-                        <th>IP</th>
-                        <th>品牌型号</th>
-                        <th>服务类型</th>
-                        <th>所属部门</th>
-                        <th>负责人</th>
-                        <th>操作系统</th>
-                        <th>内存</th>
-                        <th>位置</th>
-                        <th>状态</th>
-                        <th>最近更新</th>
-                        <th>操作</th>
+                        <th class="td0" width="30">选择</th>
+                        <th class="td1" width="60">序列号</th>
+                        <th class="td2" width="60">IP</th>
+                        <th class="td3">品牌型号</th>
+                        <th class="td4">服务类型</th>
+                        <th class="td5">所属部门</th>
+                        <th class="td6">负责人</th>
+                        <th class="td7">操作系统</th>
+                        <th class="td8">内存</th>
+                        <th class="td9">位置</th>
+                        <th class="td10">状态</th>
+                        <th class="td11">最近更新</th>
+                        <th class="td12" width="100">操作</th>
                     </tr>
                     </thead>
                     <tbody>
                         {% for data in sqldata %}
                         <tr class="gradeA">
-                            <td><input type="checkbox" class="i-checks" name="serverlist" value="{{ data.id }}"></td>
-                            <td>{{ data.sn }}</td>
-                            <td>{{ data.ip }}</td>
-                            <td>{{ data.brand }} {{ data.model }}</td>
-                            <td>{{ data.servicetype }}</td>
-                            <td>{{ data.department }}</td>
-                            <td>{{ data.principal }}</td>
-                            <td>{{ data.system }}</td>
-                            <td>{% load mytags %} {{ data.memory|first|MB_to_GB }}G</td>
-                            <td>{{ data.position }}</td>
-                            <td>{% load mytags %} {{ status|key:data.status }}</td>
-                            <td>{{ data.uptime }}</td>
+                            <td class="td0"><input type="checkbox" class="i-checks" name="serverlist" value="{{ data.id }}"></td>
+                            <td class="td1">{{ data.sn }}</td>
+                            <td class="td2">{{ data.ip }}</td>
+                            <td class="td3">{{ data.brand }} {{ data.model }}</td>
+                            <td class="td4">{{ data.servicetype }}</td>
+                            <td class="td5">{{ data.department }}</td>
+                            <td class="td6">{{ data.principal }}</td>
+                            <td class="td7">{{ data.system }}</td>
+                            <td class="td8">{% load mytags %} {{ data.memory|first|MB_to_GB }}G</td>
+                            <td class="td9">{{ data.position }}</td>
+                            <td class="td10">{% load mytags %} {{ status|key:data.status }}</td>
+                            <td class="td11">{{ data.uptime }}</td>
 
-                            <td>
+                            <td class="td12">
                                 <div class="btn-group">
                                     <a href="#"><button class="btn-white btn btn-xs">监控</button></a>
                                     <a href="/server/view/{{ data.id }}"><button class="btn-white btn btn-xs">详情</button></a>
@@ -99,19 +116,19 @@
 
                     <tfoot>
                         <tr>
-                            <th>选择</th>
-                            <th>序列号</th>
-                            <th>IP</th>
-                            <th>品牌型号</th>
-                            <th>服务类型</th>
-                            <th>所属部门</th>
-                            <th>负责人</th>
-                            <th>操作系统</th>
-                            <th>内存</th>
-                            <th>位置</th>
-                            <th>状态</th>
-                            <th>最近更新</th>
-                            <th>操作</th>
+                            <th class="td0" width="30">选择</th>
+                            <th class="td1" width="60">序列号</th>
+                            <th class="td2" width="60">IP</th>
+                            <th class="td3">品牌型号</th>
+                            <th class="td4">服务类型</th>
+                            <th class="td5">所属部门</th>
+                            <th class="td6">负责人</th>
+                            <th class="td7">操作系统</th>
+                            <th class="td8">内存</th>
+                            <th class="td9">位置</th>
+                            <th class="td10">状态</th>
+                            <th class="td11">最近更新</th>
+                            <th class="td12" width="100">操作</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -148,6 +165,54 @@
 
     <!-- iCheck -->
     <script src="/static/skin/js/plugins/iCheck/icheck.min.js"></script>
+
+    <script>
+    /*隐藏表格列*/
+    //默认隐藏列
+    var tab_column = [4,5,6,9];
+    for(var col in tab_column){
+        default_hide_table_column(tab_column[col]);
+    }
+
+    function default_hide_table_column(col){
+
+        var animation_time = 0;
+        $('.td' + col).css("display","none");
+        $('.td' + col).css("display","none");
+
+        var tdbtn_hide_class = "btn btn-default";
+        $('#tdbtn' + col).attr("class", tdbtn_hide_class);
+
+    }
+
+    function hide_table_column(col){
+            var th_display = "none"
+            th_display = $('.td' + col).css('display');
+            var animation_time = 300;
+            if(th_display == "none"){
+                $('.td' + col).show(animation_time);
+                $('.td' + col).show(animation_time);
+
+            }else{
+                $('.td' + col).hide(animation_time);
+                $('.td' + col).hide(animation_time);
+            }
+
+            var tdbtn_id = 'tdbtn'+col;
+            var tdbtn_class = "";
+            var tdbtn_show_class = "btn btn-info";
+            var tdbtn_hide_class = "btn btn-default";
+            tdbtn_class = $('#'+ tdbtn_id).attr('class');
+            if(tdbtn_class == tdbtn_show_class){
+                $("#" + tdbtn_id).attr("class", tdbtn_hide_class);
+            }else{
+                $("#" + tdbtn_id).attr("class", tdbtn_show_class);
+            }
+
+
+    }
+
+    </script>
 
     <script>
     /*iCheck*/
@@ -298,6 +363,11 @@
                 "iDisplayLength": 10,
                 "lengthMenu": [[10,25,50,100,500,1000,-1], [10,25,50,100,500,1000,"all"]],
                 "sPaginationType": "full_numbers",
+
+                "columnDefs": [
+                    {"orderable":true,"targets":[1,2,10]}
+                ],
+
                 "language": {
                     url:'/static/skin/js/plugins/dataTables/Chinese.json'
                 },

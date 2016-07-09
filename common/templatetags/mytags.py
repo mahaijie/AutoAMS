@@ -8,12 +8,17 @@ register = template.Library()
 
 @register.filter(name='key')
 def key(d, key_name):
-    if key_name != None:
+    try:
         return d[key_name]
+    except:
+        return "未设置"
 
 
 @register.filter(name='MB_to_GB')
 def MB_to_GB(MB):
-    GB = int(MB)/1024
-    GB = round(float(GB), 0)
-    return int(GB)
+    try:
+        GB = int(MB)/1024
+        GB = round(float(GB), 0)
+        return int(GB)
+    except:
+        return MB
