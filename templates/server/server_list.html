@@ -68,7 +68,8 @@
                     <button type="button" id="tdbtn12" onclick="hide_table_column(12)" class="btn btn-info">操作</button>&nbsp;&nbsp;
                 </p>
 
-                <table class="table table-striped table-bordered table-hover dataTables-config" id="show_hide">
+                <table class="table table-striped table-bordered table-hover dataTables-config">
+
                     <thead>
                     <tr>
                         <th class="td0" width="30">选择</th>
@@ -134,7 +135,6 @@
                 </table>
             <button type="button" class="btn btn-info" onclick="selectAll();">全选 / 取消</button>&nbsp;&nbsp;
             <button type="button" class="btn btn-primary" onclick="updatemore();">批量编辑</button>&nbsp;&nbsp;
-
             </div>
 
         </div>
@@ -165,54 +165,6 @@
 
     <!-- iCheck -->
     <script src="/static/skin/js/plugins/iCheck/icheck.min.js"></script>
-
-    <script>
-    /*隐藏表格列*/
-    //默认隐藏列
-    var tab_column = [4,5,6,9];
-    for(var col in tab_column){
-        default_hide_table_column(tab_column[col]);
-    }
-
-    function default_hide_table_column(col){
-
-        var animation_time = 0;
-        $('.td' + col).css("display","none");
-        $('.td' + col).css("display","none");
-
-        var tdbtn_hide_class = "btn btn-default";
-        $('#tdbtn' + col).attr("class", tdbtn_hide_class);
-
-    }
-
-    function hide_table_column(col){
-            var th_display = "none"
-            th_display = $('.td' + col).css('display');
-            var animation_time = 300;
-            if(th_display == "none"){
-                $('.td' + col).show(animation_time);
-                $('.td' + col).show(animation_time);
-
-            }else{
-                $('.td' + col).hide(animation_time);
-                $('.td' + col).hide(animation_time);
-            }
-
-            var tdbtn_id = 'tdbtn'+col;
-            var tdbtn_class = "";
-            var tdbtn_show_class = "btn btn-info";
-            var tdbtn_hide_class = "btn btn-default";
-            tdbtn_class = $('#'+ tdbtn_id).attr('class');
-            if(tdbtn_class == tdbtn_show_class){
-                $("#" + tdbtn_id).attr("class", tdbtn_hide_class);
-            }else{
-                $("#" + tdbtn_id).attr("class", tdbtn_show_class);
-            }
-
-
-    }
-
-    </script>
 
     <script>
     /*iCheck*/
@@ -326,6 +278,71 @@
 
     </script>
 
+    <script>
+        //当点击下一页、搜索、显示行数等动作时，datatable自动调用该函数来根据显示按钮的状态来显示和隐藏列
+        function set_hide(col){
+            var animation_time = 0;
+            var tdbtn_id = 'tdbtn'+col;
+            var tdbtn_class = "";
+            var tdbtn_show_class = "btn btn-info";
+            var tdbtn_hide_class = "btn btn-default";
+            tdbtn_class = $('#'+ tdbtn_id).attr('class');
+            if(tdbtn_class == tdbtn_show_class){
+                $('.td' + col).show(animation_time);
+                $('.td' + col).show(animation_time);
+            }else{
+                $('.td' + col).hide(animation_time);
+                $('.td' + col).hide(animation_time);
+            }
+        }
+
+        /*隐藏表格列*/
+        //默认隐藏列
+        var tab_column = [4,5,6,9];
+        for(var col in tab_column){
+            default_hide_table_column(tab_column[col]);
+        }
+
+        function default_hide_table_column(col){
+
+            var animation_time = 0;
+            $('.td' + col).css("display","none");
+            $('.td' + col).css("display","none");
+
+            var tdbtn_hide_class = "btn btn-default";
+            $('#tdbtn' + col).attr("class", tdbtn_hide_class);
+
+        }
+
+        function hide_table_column(col){
+                var th_display = "none"
+                th_display = $('.td' + col).css('display');
+                var animation_time = 300;
+                if(th_display == "none"){
+                    $('.td' + col).show(animation_time);
+                    $('.td' + col).show(animation_time);
+
+                }else{
+                    $('.td' + col).hide(animation_time);
+                    $('.td' + col).hide(animation_time);
+                }
+
+                var tdbtn_id = 'tdbtn'+col;
+                var tdbtn_class = "";
+                var tdbtn_show_class = "btn btn-info";
+                var tdbtn_hide_class = "btn btn-default";
+                tdbtn_class = $('#'+ tdbtn_id).attr('class');
+                if(tdbtn_class == tdbtn_show_class){
+                    $("#" + tdbtn_id).attr("class", tdbtn_hide_class);
+                }else{
+                    $("#" + tdbtn_id).attr("class", tdbtn_show_class);
+                }
+
+
+        }
+
+    </script>
+
     <!-- Page-Level Scripts -->
     <script>
 
@@ -359,11 +376,17 @@
 
         $(document).ready(function(){
             $('.dataTables-config').DataTable({
+                //表格有任何变化会执行此函数，比如点击下一页、搜索、显示等动作
+                "fnDrawCallback": function( oSettings ) {
+                   allcol = $(".dataTables-config").find("thead th").length;
+                    for(var i=0;i<allcol;i++){
+                        set_hide(i);
+                    }
+                },
                 "dom": '<"html5buttons"B>lTfgtip',
                 "iDisplayLength": 10,
                 "lengthMenu": [[10,25,50,100,500,1000,-1], [10,25,50,100,500,1000,"all"]],
                 "sPaginationType": "full_numbers",
-
                 "columnDefs": [
                     {"orderable":true,"targets":[1,2,10]}
                 ],
@@ -386,9 +409,10 @@
                 ],*/
                 "buttons": [
                     {extend: 'copy'},
-                    //{extend: 'csv'},
-                    {extend: 'excel'},
+                    {extend: 'csv'},
+                    //{extend: 'excel'},
                     //{extend: 'pdf', title: 'ExampleFile'},
+
 
                     {extend: 'print',
                      customize: function (win){
