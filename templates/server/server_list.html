@@ -338,9 +338,22 @@
                     $("#" + tdbtn_id).attr("class", tdbtn_show_class);
                 }
 
-
         }
 
+        //获取当前显示的行，根据显示按钮属性获取,返回数组给datatables导出功能使用
+        function get_show_btncol_arr(){
+            allcol = $(".dataTables-config").find("thead th").length;
+            var btclass = 0;
+            showarr = [];
+            for(var i=0;i<allcol;i++){
+                btclass = $("#tdbtn"+i).attr("class");
+                if(btclass == "btn btn-info"){
+                    showarr[i] = i;
+                }
+
+            }
+            return showarr;
+        }
     </script>
 
     <!-- Page-Level Scripts -->
@@ -374,15 +387,18 @@
             search="";
         }
 
+
         $(document).ready(function(){
             $('.dataTables-config').DataTable({
-                //表格有任何变化会执行此函数，比如点击下一页、搜索、显示等动作
+
                 "fnDrawCallback": function( oSettings ) {
-                   allcol = $(".dataTables-config").find("thead th").length;
+                    //表格有任何变化会执行此函数，比如点击下一页、搜索、显示等动作
+                    allcol = $(".dataTables-config").find("thead th").length;
                     for(var i=0;i<allcol;i++){
                         set_hide(i);
                     }
                 },
+
                 "dom": '<"html5buttons"B>lTfgtip',
                 "iDisplayLength": 10,
                 "lengthMenu": [[10,25,50,100,500,1000,-1], [10,25,50,100,500,1000,"all"]],
@@ -407,21 +423,40 @@
                     null,
                     { "search": "My filter" },
                 ],*/
+
                 "buttons": [
-                    {extend: 'copy'},
-                    {extend: 'csv'},
+
+                    {
+                        extend: 'copy',
+                        text: '复制',
+                        exportOptions: {
+                            columns: get_show_btncol_arr() //选择要导出的列,通过该函数获取当前显示的列
+                        }
+                    },
+                    {
+                        extend: 'csv',
+                        text: '导出',
+                        exportOptions: {
+                            columns: get_show_btncol_arr() //选择要导出的列,通过该函数获取当前显示的列
+                        }
+                    },
                     //{extend: 'excel'},
                     //{extend: 'pdf', title: 'ExampleFile'},
+                    //定义导出的列
 
-
-                    {extend: 'print',
-                     customize: function (win){
+                    {
+                        extend: 'print',
+                        text: '打印',
+                        exportOptions: {
+                            columns: get_show_btncol_arr() //选择要导出的列,通过该函数获取当前显示的列
+                        },
+                        customize: function (win){
                             $(win.document.body).addClass('white-bg');
                             $(win.document.body).css('font-size', '10px');
 
                             $(win.document.body).find('table')
-                                    .addClass('compact')
-                                    .css('font-size', 'inherit');
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
                         }
                     }
                 ]
