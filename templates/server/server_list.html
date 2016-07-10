@@ -279,7 +279,7 @@
     </script>
 
     <script>
-        //当点击下一页、搜索、显示行数等动作时，datatable自动调用该函数来根据显示按钮的状态来显示和隐藏列
+        //当点击下一页、搜索、显示行数等动作时，datatables的fnDrawCallback自动调用该函数来根据显示按钮的状态来显示和隐藏列
         function set_hide(col){
             var animation_time = 0;
             var tdbtn_id = 'tdbtn'+col;
