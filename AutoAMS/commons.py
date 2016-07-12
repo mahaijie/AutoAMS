@@ -53,7 +53,11 @@ def myping(ip):
     if(result[0] == 0):
         return True
     else:
-        return False
+        result = commands.getstatusoutput("fping -r 2 -t 200 %s"%(ip))
+        if(result[0] == 0):
+            return True
+        else:
+            return False
 
 # 装饰器函数（验证当前用户是否拥有view中的函数权限）
 def permission_validate(func):

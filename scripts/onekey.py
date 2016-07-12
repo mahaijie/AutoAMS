@@ -11,6 +11,7 @@ from server.models import Server
 import traceback,sys
 import ansible.runner,json,re
 
+
 def getdata_shell(ip,user,passwd,order):
 
     data = ansible.runner.Runner(
@@ -21,6 +22,7 @@ def getdata_shell(ip,user,passwd,order):
         host_list = [ip],
         pattern = '',
         transport = 'smart',
+        timeout = 20,
         )
     try:
         data = data.run()
@@ -30,7 +32,7 @@ def getdata_shell(ip,user,passwd,order):
         return result
     except Exception, e:
         print ip+" getdata_shell is Exception!!!"
-        traceback.print_exc(file=sys.stdout)
+        #traceback.print_exc(file=sys.stdout)
         result = {'status':1,'data':'Sorry,Exception!'}
         return result
 
@@ -45,6 +47,7 @@ def getdata_setup(ip,user,passwd):
         host_list = [ip],
         pattern = '',
         transport = 'smart',
+        timeout = 20,
         )
     try:
         data = data.run()
@@ -54,20 +57,19 @@ def getdata_setup(ip,user,passwd):
     except Exception, e:
         print ip+" getdata_setup is Exception!!!"
         print data
-        traceback.print_exc(file=sys.stdout)
+        #traceback.print_exc(file=sys.stdout)
         result = {'status':1,'data':'Sorry,Exception!'}
         return result
 
 # get one server info
 def get_server_info(self):
 
-    ip = self[0]
-    user = self[1]
-    if(user == ''):
-        user = 'root'
-    passwd = self[2]
+    ip = self
+    user = 'root'
+    passwd = ''
     server={}
 
+    # 采集之前首先ping检测下服务器
     if(commons.myping(ip) == False):
         result = {"ip":ip,"status":"timeout","data":"ping timeout"}
         return result
@@ -169,8 +171,6 @@ def get_server_info(self):
                 if(size[i] != 'No Module Installed'):
                     memory_list.append([size[i],type[i]+ip,speed[i],set[i],sn[i]])
 
-            print server_memory_total
-            print len(size)
             server['server_memory'] = json.dumps(memory_list)
         except Exception, e:
             server['server_memory'] = 'Unknown'
@@ -193,7 +193,6 @@ def savedata(request, result):
 
     server = result['data']
     sn = server['server_sn']
-    print sn
     ip = server['server_ip']
     brand = server['server_brand']
     model = server['server_model']
@@ -267,11 +266,8 @@ def run_threadpool(maxthread,datalist):
         return False
 
 def run():
-    # list格式：[["192.168.1.100", "root", "123456"],]
+    # list格式：['192.168.100.100','192.168.100.101',]
     datalist = json.loads(open('/root/hostlist.json').read())
-    datalist = [
-        ['192.168.216.102','root',''],
-    ]
 
     maxthread = 20 #最大开启线程数
     run_threadpool(maxthread,datalist) # 执行多线程函数
